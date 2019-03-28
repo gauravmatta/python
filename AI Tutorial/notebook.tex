@@ -1,0 +1,2027 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Demo}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{set-seed-for-reproducability}{%
+\section{Set Seed for
+reproducability}\label{set-seed-for-reproducability}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{load-dependencies}{%
+\section{Load dependencies}\label{load-dependencies}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{k+kn}{import} \PY{n+nn}{keras}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{mnist}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+\end{Verbatim}
+
+
+    \hypertarget{load-data}{%
+\section{Load Data}\label{load-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)} \PY{o}{=} \PY{n}{mnist}\PY{o}{.}\PY{n}{load\PYZus{}data}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} (60000, 28, 28)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} (60000,)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{99}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} array([5, 0, 4, 1, 9, 2, 1, 3, 1, 4, 3, 5, 3, 6, 1, 7, 2, 8, 6, 9, 4, 0,
+                9, 1, 1, 2, 4, 3, 2, 7, 3, 8, 6, 9, 0, 5, 6, 0, 7, 6, 1, 8, 7, 9,
+                3, 9, 8, 5, 9, 3, 3, 0, 7, 4, 9, 8, 0, 9, 4, 1, 4, 4, 6, 0, 4, 5,
+                6, 1, 0, 0, 1, 7, 1, 6, 3, 0, 2, 1, 1, 7, 9, 0, 2, 6, 7, 8, 3, 9,
+                0, 4, 6, 7, 4, 6, 8, 0, 7, 8, 3], dtype=uint8)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} (10000, 28, 28)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} array([[  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,  84, 185, 159, 151,  60,  36,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0, 222, 254, 254, 254, 254, 241, 198,
+                 198, 198, 198, 198, 198, 198, 198, 170,  52,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,  67, 114,  72, 114, 163, 227, 254,
+                 225, 254, 254, 254, 250, 229, 254, 254, 140,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  17,  66,
+                  14,  67,  67,  67,  59,  21, 236, 254, 106,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,  83, 253, 209,  18,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,  22, 233, 255,  83,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0, 129, 254, 238,  44,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,  59, 249, 254,  62,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0, 133, 254, 187,   5,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   9, 205, 248,  58,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0, 126, 254, 182,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,  75, 251, 240,  57,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                  19, 221, 254, 166,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   3,
+                 203, 254, 219,  35,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  38,
+                 254, 254,  77,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  31, 224,
+                 254, 115,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 133, 254,
+                 254,  52,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,  61, 242, 254,
+                 254,  52,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 121, 254, 254,
+                 219,  40,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 121, 254, 207,
+                  18,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0],
+                [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+                   0,   0]], dtype=uint8)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} (10000,)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} 7
+\end{Verbatim}
+            
+    \hypertarget{preprocess-data}{%
+\section{Preprocess Data}\label{preprocess-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{x\PYZus{}train}\PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{60000}\PY{p}{,} \PY{l+m+mi}{784}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{x\PYZus{}test}\PY{o}{=} \PY{n}{x\PYZus{}test}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{784}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} array([  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,  84., 185., 159., 151.,  60.,  36.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0., 222.,
+                254., 254., 254., 254., 241., 198., 198., 198., 198., 198., 198.,
+                198., 198., 170.,  52.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,  67., 114.,  72., 114., 163., 227.,
+                254., 225., 254., 254., 254., 250., 229., 254., 254., 140.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,  17.,  66.,  14.,  67.,  67.,  67.,
+                 59.,  21., 236., 254., 106.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,  83., 253., 209.,  18.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,  22., 233., 255.,  83.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0., 129., 254., 238.,  44.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,  59., 249., 254.,  62.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0., 133., 254., 187.,   5.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   9., 205., 248.,  58.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0., 126., 254., 182.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,  75., 251., 240.,  57.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,  19., 221., 254., 166.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  3., 203., 254., 219.,  35.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,  38., 254., 254.,  77.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                 31., 224., 254., 115.,   1.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0., 133., 254., 254.,  52.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                 61., 242., 254., 254.,  52.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0., 121., 254., 254., 219.,  40.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0., 121., 254., 207.,  18.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,
+                  0.,   0.,   0.], dtype=float32)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{x\PYZus{}train} \PY{o}{/}\PY{o}{=} \PY{l+m+mi}{255}
+         \PY{n}{x\PYZus{}test} \PY{o}{/}\PY{o}{=} \PY{l+m+mi}{255}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{x\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} array([0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.32941177, 0.7254902 , 0.62352943,
+                0.5921569 , 0.23529412, 0.14117648, 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.87058824, 0.99607843, 0.99607843, 0.99607843, 0.99607843,
+                0.94509804, 0.7764706 , 0.7764706 , 0.7764706 , 0.7764706 ,
+                0.7764706 , 0.7764706 , 0.7764706 , 0.7764706 , 0.6666667 ,
+                0.20392157, 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.2627451 , 0.44705883,
+                0.28235295, 0.44705883, 0.6392157 , 0.8901961 , 0.99607843,
+                0.88235295, 0.99607843, 0.99607843, 0.99607843, 0.98039216,
+                0.8980392 , 0.99607843, 0.99607843, 0.54901963, 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.06666667, 0.25882354, 0.05490196, 0.2627451 ,
+                0.2627451 , 0.2627451 , 0.23137255, 0.08235294, 0.9254902 ,
+                0.99607843, 0.41568628, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.3254902 , 0.99215686, 0.81960785, 0.07058824,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.08627451, 0.9137255 ,
+                1.        , 0.3254902 , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.5058824 , 0.99607843, 0.93333334, 0.17254902,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.23137255, 0.9764706 ,
+                0.99607843, 0.24313726, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.52156866, 0.99607843, 0.73333335, 0.01960784,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.03529412, 0.8039216 ,
+                0.972549  , 0.22745098, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.49411765, 0.99607843, 0.7137255 , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.29411766, 0.9843137 ,
+                0.9411765 , 0.22352941, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.07450981, 0.8666667 , 0.99607843, 0.6509804 , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.01176471, 0.79607844, 0.99607843,
+                0.85882354, 0.13725491, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.14901961, 0.99607843, 0.99607843, 0.3019608 , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.12156863, 0.8784314 , 0.99607843,
+                0.4509804 , 0.00392157, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.52156866, 0.99607843, 0.99607843, 0.20392157, 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.23921569, 0.9490196 , 0.99607843,
+                0.99607843, 0.20392157, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.4745098 , 0.99607843, 0.99607843, 0.85882354, 0.15686275,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.4745098 , 0.99607843,
+                0.8117647 , 0.07058824, 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        , 0.        ,
+                0.        , 0.        , 0.        , 0.        ], dtype=float32)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{n\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{10}
+         \PY{n}{y\PYZus{}train}\PY{o}{=}\PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{)}
+         \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} array([0., 0., 0., 0., 0., 0., 0., 1., 0., 0.], dtype=float32)
+\end{Verbatim}
+            
+    \hypertarget{design-neural-network-architecture}{%
+\section{Design neural network
+architecture}\label{design-neural-network-architecture}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{model}\PY{o}{=}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    model.summary()
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{784}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} 50176
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{p}{(}\PY{l+m+mi}{64}\PY{o}{*}\PY{l+m+mi}{784}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{64}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} 50240
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{l+m+mi}{64}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} 650
+\end{Verbatim}
+            
+    \hypertarget{configure-model}{%
+\section{Configure Model}\label{configure-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{train}{%
+\section{Train}\label{train}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 60000 samples, validate on 10000 samples
+Epoch 1/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0106 - acc: 0.9336 - val\_loss: 0.0105 - val\_acc: 0.9331
+Epoch 2/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0106 - acc: 0.9337 - val\_loss: 0.0104 - val\_acc: 0.9332
+Epoch 3/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0106 - acc: 0.9338 - val\_loss: 0.0104 - val\_acc: 0.9336
+Epoch 4/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0106 - acc: 0.9340 - val\_loss: 0.0104 - val\_acc: 0.9335
+Epoch 5/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0106 - acc: 0.9343 - val\_loss: 0.0104 - val\_acc: 0.9336
+Epoch 6/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0105 - acc: 0.9343 - val\_loss: 0.0104 - val\_acc: 0.9339
+Epoch 7/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0105 - acc: 0.9344 - val\_loss: 0.0104 - val\_acc: 0.9339
+Epoch 8/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0105 - acc: 0.9345 - val\_loss: 0.0104 - val\_acc: 0.9338
+Epoch 9/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0105 - acc: 0.9345 - val\_loss: 0.0103 - val\_acc: 0.9339
+Epoch 10/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0105 - acc: 0.9347 - val\_loss: 0.0103 - val\_acc: 0.9338
+Epoch 11/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0105 - acc: 0.9349 - val\_loss: 0.0103 - val\_acc: 0.9339
+Epoch 12/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0104 - acc: 0.9351 - val\_loss: 0.0103 - val\_acc: 0.9342
+Epoch 13/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0104 - acc: 0.9353 - val\_loss: 0.0103 - val\_acc: 0.9341
+Epoch 14/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0104 - acc: 0.9352 - val\_loss: 0.0103 - val\_acc: 0.9341
+Epoch 15/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0104 - acc: 0.9354 - val\_loss: 0.0102 - val\_acc: 0.9343
+Epoch 16/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0104 - acc: 0.9357 - val\_loss: 0.0102 - val\_acc: 0.9341
+Epoch 17/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9356 - val\_loss: 0.0102 - val\_acc: 0.9343
+Epoch 18/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9358 - val\_loss: 0.0102 - val\_acc: 0.9342
+Epoch 19/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9358 - val\_loss: 0.0102 - val\_acc: 0.9344
+Epoch 20/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9361 - val\_loss: 0.0102 - val\_acc: 0.9344
+Epoch 21/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9362 - val\_loss: 0.0102 - val\_acc: 0.9346
+Epoch 22/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0103 - acc: 0.9362 - val\_loss: 0.0102 - val\_acc: 0.9346
+Epoch 23/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9364 - val\_loss: 0.0101 - val\_acc: 0.9343
+Epoch 24/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9367 - val\_loss: 0.0101 - val\_acc: 0.9345
+Epoch 25/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9366 - val\_loss: 0.0101 - val\_acc: 0.9344
+Epoch 26/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9368 - val\_loss: 0.0101 - val\_acc: 0.9346
+Epoch 27/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9369 - val\_loss: 0.0101 - val\_acc: 0.9345
+Epoch 28/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0102 - acc: 0.9370 - val\_loss: 0.0101 - val\_acc: 0.9347
+Epoch 29/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9371 - val\_loss: 0.0101 - val\_acc: 0.9350
+Epoch 30/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9371 - val\_loss: 0.0100 - val\_acc: 0.9349
+Epoch 31/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9374 - val\_loss: 0.0100 - val\_acc: 0.9350
+Epoch 32/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9372 - val\_loss: 0.0100 - val\_acc: 0.9350
+Epoch 33/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9374 - val\_loss: 0.0100 - val\_acc: 0.9355
+Epoch 34/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9375 - val\_loss: 0.0100 - val\_acc: 0.9355
+Epoch 35/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0101 - acc: 0.9378 - val\_loss: 0.0100 - val\_acc: 0.9354
+Epoch 36/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0100 - acc: 0.9379 - val\_loss: 0.0100 - val\_acc: 0.9353
+Epoch 37/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0100 - acc: 0.9379 - val\_loss: 0.0100 - val\_acc: 0.9354
+Epoch 38/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0100 - acc: 0.9381 - val\_loss: 0.0099 - val\_acc: 0.9355
+Epoch 39/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0100 - acc: 0.9383 - val\_loss: 0.0099 - val\_acc: 0.9359
+Epoch 40/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0100 - acc: 0.9382 - val\_loss: 0.0099 - val\_acc: 0.9361
+Epoch 41/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0100 - acc: 0.9384 - val\_loss: 0.0099 - val\_acc: 0.9359
+Epoch 42/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0099 - acc: 0.9384 - val\_loss: 0.0099 - val\_acc: 0.9360
+Epoch 43/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0099 - acc: 0.9387 - val\_loss: 0.0099 - val\_acc: 0.9359
+Epoch 44/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0099 - acc: 0.9387 - val\_loss: 0.0099 - val\_acc: 0.9359
+Epoch 45/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0099 - acc: 0.9386 - val\_loss: 0.0098 - val\_acc: 0.9359
+Epoch 46/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0099 - acc: 0.9390 - val\_loss: 0.0098 - val\_acc: 0.9361
+Epoch 47/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0099 - acc: 0.9389 - val\_loss: 0.0098 - val\_acc: 0.9365
+Epoch 48/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0099 - acc: 0.9391 - val\_loss: 0.0098 - val\_acc: 0.9364
+Epoch 49/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9391 - val\_loss: 0.0098 - val\_acc: 0.9366
+Epoch 50/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9393 - val\_loss: 0.0098 - val\_acc: 0.9365
+Epoch 51/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9394 - val\_loss: 0.0098 - val\_acc: 0.9364
+Epoch 52/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9394 - val\_loss: 0.0098 - val\_acc: 0.9369
+Epoch 53/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9394 - val\_loss: 0.0097 - val\_acc: 0.9365
+Epoch 54/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0098 - acc: 0.9397 - val\_loss: 0.0097 - val\_acc: 0.9368
+Epoch 55/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0098 - acc: 0.9397 - val\_loss: 0.0097 - val\_acc: 0.9369
+Epoch 56/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0097 - acc: 0.9399 - val\_loss: 0.0097 - val\_acc: 0.9371
+Epoch 57/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0097 - acc: 0.9401 - val\_loss: 0.0097 - val\_acc: 0.9372
+Epoch 58/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0097 - acc: 0.9403 - val\_loss: 0.0097 - val\_acc: 0.9374
+Epoch 59/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0097 - acc: 0.9402 - val\_loss: 0.0097 - val\_acc: 0.9371
+Epoch 60/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0097 - acc: 0.9404 - val\_loss: 0.0097 - val\_acc: 0.9377
+Epoch 61/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0097 - acc: 0.9404 - val\_loss: 0.0096 - val\_acc: 0.9380
+Epoch 62/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0097 - acc: 0.9406 - val\_loss: 0.0096 - val\_acc: 0.9380
+Epoch 63/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0096 - acc: 0.9407 - val\_loss: 0.0096 - val\_acc: 0.9379
+Epoch 64/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0096 - acc: 0.9407 - val\_loss: 0.0096 - val\_acc: 0.9378
+Epoch 65/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0096 - acc: 0.9409 - val\_loss: 0.0096 - val\_acc: 0.9382
+Epoch 66/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0096 - acc: 0.9409 - val\_loss: 0.0096 - val\_acc: 0.9381
+Epoch 67/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0096 - acc: 0.9411 - val\_loss: 0.0096 - val\_acc: 0.9383
+Epoch 68/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0096 - acc: 0.9412 - val\_loss: 0.0096 - val\_acc: 0.9384
+Epoch 69/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0096 - acc: 0.9413 - val\_loss: 0.0096 - val\_acc: 0.9383
+Epoch 70/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0095 - acc: 0.9412 - val\_loss: 0.0095 - val\_acc: 0.9386
+Epoch 71/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0095 - acc: 0.9415 - val\_loss: 0.0095 - val\_acc: 0.9386
+Epoch 72/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0095 - acc: 0.9414 - val\_loss: 0.0095 - val\_acc: 0.9386
+Epoch 73/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0095 - acc: 0.9415 - val\_loss: 0.0095 - val\_acc: 0.9388
+Epoch 74/400
+60000/60000 [==============================] - 2s 32us/step - loss: 0.0095 - acc: 0.9417 - val\_loss: 0.0095 - val\_acc: 0.9390
+Epoch 75/400
+60000/60000 [==============================] - 2s 32us/step - loss: 0.0095 - acc: 0.9419 - val\_loss: 0.0095 - val\_acc: 0.9390
+Epoch 76/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0095 - acc: 0.9418 - val\_loss: 0.0095 - val\_acc: 0.9389
+Epoch 77/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9419 - val\_loss: 0.0095 - val\_acc: 0.9391
+Epoch 78/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9420 - val\_loss: 0.0095 - val\_acc: 0.9394
+Epoch 79/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9421 - val\_loss: 0.0094 - val\_acc: 0.9395
+Epoch 80/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9421 - val\_loss: 0.0094 - val\_acc: 0.9394
+Epoch 81/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9424 - val\_loss: 0.0094 - val\_acc: 0.9393
+Epoch 82/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9423 - val\_loss: 0.0094 - val\_acc: 0.9397
+Epoch 83/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9426 - val\_loss: 0.0094 - val\_acc: 0.9397
+Epoch 84/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0094 - acc: 0.9427 - val\_loss: 0.0094 - val\_acc: 0.9397
+Epoch 85/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9425 - val\_loss: 0.0094 - val\_acc: 0.9399
+Epoch 86/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9426 - val\_loss: 0.0094 - val\_acc: 0.9402
+Epoch 87/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9428 - val\_loss: 0.0094 - val\_acc: 0.9407
+Epoch 88/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9428 - val\_loss: 0.0093 - val\_acc: 0.9400
+Epoch 89/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9430 - val\_loss: 0.0093 - val\_acc: 0.9404
+Epoch 90/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0093 - acc: 0.9431 - val\_loss: 0.0093 - val\_acc: 0.9404
+Epoch 91/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0093 - acc: 0.9432 - val\_loss: 0.0093 - val\_acc: 0.9409
+Epoch 92/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0093 - acc: 0.9432 - val\_loss: 0.0093 - val\_acc: 0.9412
+Epoch 93/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0092 - acc: 0.9433 - val\_loss: 0.0093 - val\_acc: 0.9406
+Epoch 94/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0092 - acc: 0.9434 - val\_loss: 0.0093 - val\_acc: 0.9410
+Epoch 95/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0092 - acc: 0.9434 - val\_loss: 0.0093 - val\_acc: 0.9412
+Epoch 96/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0092 - acc: 0.9436 - val\_loss: 0.0093 - val\_acc: 0.9417
+Epoch 97/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0092 - acc: 0.9437 - val\_loss: 0.0092 - val\_acc: 0.9411
+Epoch 98/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0092 - acc: 0.9436 - val\_loss: 0.0092 - val\_acc: 0.9412
+Epoch 99/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0092 - acc: 0.9439 - val\_loss: 0.0092 - val\_acc: 0.9416
+Epoch 100/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0092 - acc: 0.9438 - val\_loss: 0.0092 - val\_acc: 0.9415
+Epoch 101/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9439 - val\_loss: 0.0092 - val\_acc: 0.9416
+Epoch 102/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9440 - val\_loss: 0.0092 - val\_acc: 0.9418
+Epoch 103/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9440 - val\_loss: 0.0092 - val\_acc: 0.9416
+Epoch 104/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9442 - val\_loss: 0.0092 - val\_acc: 0.9417
+Epoch 105/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0091 - acc: 0.9442 - val\_loss: 0.0092 - val\_acc: 0.9420
+Epoch 106/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0091 - acc: 0.9443 - val\_loss: 0.0091 - val\_acc: 0.9420
+Epoch 107/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9444 - val\_loss: 0.0091 - val\_acc: 0.9418
+Epoch 108/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0091 - acc: 0.9445 - val\_loss: 0.0091 - val\_acc: 0.9423
+Epoch 109/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9445 - val\_loss: 0.0091 - val\_acc: 0.9418
+Epoch 110/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9446 - val\_loss: 0.0091 - val\_acc: 0.9424
+Epoch 111/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9447 - val\_loss: 0.0091 - val\_acc: 0.9420
+Epoch 112/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9448 - val\_loss: 0.0091 - val\_acc: 0.9423
+Epoch 113/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9448 - val\_loss: 0.0091 - val\_acc: 0.9425
+Epoch 114/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0090 - acc: 0.9449 - val\_loss: 0.0091 - val\_acc: 0.9425
+Epoch 115/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9448 - val\_loss: 0.0091 - val\_acc: 0.9425
+Epoch 116/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0090 - acc: 0.9450 - val\_loss: 0.0091 - val\_acc: 0.9424
+Epoch 117/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0089 - acc: 0.9450 - val\_loss: 0.0090 - val\_acc: 0.9423
+Epoch 118/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9451 - val\_loss: 0.0090 - val\_acc: 0.9427
+Epoch 119/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9452 - val\_loss: 0.0090 - val\_acc: 0.9424
+Epoch 120/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9453 - val\_loss: 0.0090 - val\_acc: 0.9425
+Epoch 121/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9453 - val\_loss: 0.0090 - val\_acc: 0.9427
+Epoch 122/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9454 - val\_loss: 0.0090 - val\_acc: 0.9426
+Epoch 123/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9456 - val\_loss: 0.0090 - val\_acc: 0.9425
+Epoch 124/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9454 - val\_loss: 0.0090 - val\_acc: 0.9426
+Epoch 125/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0089 - acc: 0.9456 - val\_loss: 0.0090 - val\_acc: 0.9428
+Epoch 126/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9456 - val\_loss: 0.0089 - val\_acc: 0.9430
+Epoch 127/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0088 - acc: 0.9458 - val\_loss: 0.0089 - val\_acc: 0.9433
+Epoch 128/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0088 - acc: 0.9458 - val\_loss: 0.0089 - val\_acc: 0.9434
+Epoch 129/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9458 - val\_loss: 0.0089 - val\_acc: 0.9433
+Epoch 130/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9461 - val\_loss: 0.0089 - val\_acc: 0.9434
+Epoch 131/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9460 - val\_loss: 0.0089 - val\_acc: 0.9433
+Epoch 132/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9461 - val\_loss: 0.0089 - val\_acc: 0.9432
+Epoch 133/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0088 - acc: 0.9461 - val\_loss: 0.0089 - val\_acc: 0.9432
+Epoch 134/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0088 - acc: 0.9463 - val\_loss: 0.0089 - val\_acc: 0.9437
+Epoch 135/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9463 - val\_loss: 0.0089 - val\_acc: 0.9434
+Epoch 136/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9463 - val\_loss: 0.0089 - val\_acc: 0.9437
+Epoch 137/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9465 - val\_loss: 0.0088 - val\_acc: 0.9436
+Epoch 138/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0087 - acc: 0.9465 - val\_loss: 0.0088 - val\_acc: 0.9437
+Epoch 139/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9467 - val\_loss: 0.0088 - val\_acc: 0.9437
+Epoch 140/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9467 - val\_loss: 0.0088 - val\_acc: 0.9439
+Epoch 141/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9467 - val\_loss: 0.0088 - val\_acc: 0.9439
+Epoch 142/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9468 - val\_loss: 0.0088 - val\_acc: 0.9438
+Epoch 143/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0087 - acc: 0.9469 - val\_loss: 0.0088 - val\_acc: 0.9441
+Epoch 144/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0086 - acc: 0.9470 - val\_loss: 0.0088 - val\_acc: 0.9441
+Epoch 145/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9471 - val\_loss: 0.0088 - val\_acc: 0.9446
+Epoch 146/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9471 - val\_loss: 0.0088 - val\_acc: 0.9445
+Epoch 147/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9471 - val\_loss: 0.0088 - val\_acc: 0.9447
+Epoch 148/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0086 - acc: 0.9473 - val\_loss: 0.0087 - val\_acc: 0.9445
+Epoch 149/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9473 - val\_loss: 0.0087 - val\_acc: 0.9448
+Epoch 150/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9474 - val\_loss: 0.0087 - val\_acc: 0.9444
+Epoch 151/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9474 - val\_loss: 0.0087 - val\_acc: 0.9445
+Epoch 152/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0086 - acc: 0.9475 - val\_loss: 0.0087 - val\_acc: 0.9442
+Epoch 153/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9477 - val\_loss: 0.0087 - val\_acc: 0.9449
+Epoch 154/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0085 - acc: 0.9475 - val\_loss: 0.0087 - val\_acc: 0.9447
+Epoch 155/400
+60000/60000 [==============================] - 2s 34us/step - loss: 0.0085 - acc: 0.9476 - val\_loss: 0.0087 - val\_acc: 0.9450
+Epoch 156/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0085 - acc: 0.9477 - val\_loss: 0.0087 - val\_acc: 0.9448
+Epoch 157/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9478 - val\_loss: 0.0087 - val\_acc: 0.9455
+Epoch 158/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9477 - val\_loss: 0.0087 - val\_acc: 0.9448
+Epoch 159/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9480 - val\_loss: 0.0086 - val\_acc: 0.9451
+Epoch 160/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9480 - val\_loss: 0.0086 - val\_acc: 0.9449
+Epoch 161/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9480 - val\_loss: 0.0086 - val\_acc: 0.9450
+Epoch 162/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0085 - acc: 0.9482 - val\_loss: 0.0086 - val\_acc: 0.9451
+Epoch 163/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9481 - val\_loss: 0.0086 - val\_acc: 0.9452
+Epoch 164/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9482 - val\_loss: 0.0086 - val\_acc: 0.9453
+Epoch 165/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9484 - val\_loss: 0.0086 - val\_acc: 0.9459
+Epoch 166/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9484 - val\_loss: 0.0086 - val\_acc: 0.9458
+Epoch 167/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9484 - val\_loss: 0.0086 - val\_acc: 0.9458
+Epoch 168/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0084 - acc: 0.9484 - val\_loss: 0.0086 - val\_acc: 0.9451
+Epoch 169/400
+60000/60000 [==============================] - 2s 37us/step - loss: 0.0084 - acc: 0.9485 - val\_loss: 0.0086 - val\_acc: 0.9460
+Epoch 170/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0084 - acc: 0.9486 - val\_loss: 0.0086 - val\_acc: 0.9459
+Epoch 171/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0084 - acc: 0.9486 - val\_loss: 0.0085 - val\_acc: 0.9459
+Epoch 172/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0083 - acc: 0.9486 - val\_loss: 0.0085 - val\_acc: 0.9460
+Epoch 173/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0083 - acc: 0.9487 - val\_loss: 0.0085 - val\_acc: 0.9459
+Epoch 174/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0083 - acc: 0.9487 - val\_loss: 0.0085 - val\_acc: 0.9462
+Epoch 175/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0083 - acc: 0.9489 - val\_loss: 0.0085 - val\_acc: 0.9464
+Epoch 176/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9489 - val\_loss: 0.0085 - val\_acc: 0.9462
+Epoch 177/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9489 - val\_loss: 0.0085 - val\_acc: 0.9461
+Epoch 178/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9489 - val\_loss: 0.0085 - val\_acc: 0.9462
+Epoch 179/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9490 - val\_loss: 0.0085 - val\_acc: 0.9464
+Epoch 180/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9491 - val\_loss: 0.0085 - val\_acc: 0.9465
+Epoch 181/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9491 - val\_loss: 0.0085 - val\_acc: 0.9466
+Epoch 182/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0083 - acc: 0.9493 - val\_loss: 0.0084 - val\_acc: 0.9464
+Epoch 183/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9493 - val\_loss: 0.0084 - val\_acc: 0.9465
+Epoch 184/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9492 - val\_loss: 0.0084 - val\_acc: 0.9468
+Epoch 185/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9494 - val\_loss: 0.0084 - val\_acc: 0.9466
+Epoch 186/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9494 - val\_loss: 0.0084 - val\_acc: 0.9466
+Epoch 187/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9495 - val\_loss: 0.0084 - val\_acc: 0.9468
+Epoch 188/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0082 - acc: 0.9496 - val\_loss: 0.0084 - val\_acc: 0.9469
+Epoch 189/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9495 - val\_loss: 0.0084 - val\_acc: 0.9471
+Epoch 190/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0082 - acc: 0.9496 - val\_loss: 0.0084 - val\_acc: 0.9468
+Epoch 191/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0082 - acc: 0.9496 - val\_loss: 0.0084 - val\_acc: 0.9466
+Epoch 192/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0082 - acc: 0.9496 - val\_loss: 0.0084 - val\_acc: 0.9467
+Epoch 193/400
+60000/60000 [==============================] - 2s 25us/step - loss: 0.0081 - acc: 0.9497 - val\_loss: 0.0084 - val\_acc: 0.9471
+Epoch 194/400
+60000/60000 [==============================] - 2s 25us/step - loss: 0.0081 - acc: 0.9497 - val\_loss: 0.0084 - val\_acc: 0.9469
+Epoch 195/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9498 - val\_loss: 0.0083 - val\_acc: 0.9473
+Epoch 196/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9501 - val\_loss: 0.0083 - val\_acc: 0.9470
+Epoch 197/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9499 - val\_loss: 0.0083 - val\_acc: 0.9471
+Epoch 198/400
+60000/60000 [==============================] - ETA: 0s - loss: 0.0081 - acc: 0.950 - 2s 26us/step - loss: 0.0081 - acc: 0.9499 - val\_loss: 0.0083 - val\_acc: 0.9472
+Epoch 199/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9501 - val\_loss: 0.0083 - val\_acc: 0.9474
+Epoch 200/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9501 - val\_loss: 0.0083 - val\_acc: 0.9470
+Epoch 201/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9502 - val\_loss: 0.0083 - val\_acc: 0.9471
+Epoch 202/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0081 - acc: 0.9502 - val\_loss: 0.0083 - val\_acc: 0.9472
+Epoch 203/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0081 - acc: 0.9501 - val\_loss: 0.0083 - val\_acc: 0.9472
+Epoch 204/400
+60000/60000 [==============================] - 2s 25us/step - loss: 0.0080 - acc: 0.9502 - val\_loss: 0.0083 - val\_acc: 0.9471
+Epoch 205/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0080 - acc: 0.9504 - val\_loss: 0.0083 - val\_acc: 0.9471
+Epoch 206/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0080 - acc: 0.9505 - val\_loss: 0.0083 - val\_acc: 0.9471
+Epoch 207/400
+60000/60000 [==============================] - 2s 32us/step - loss: 0.0080 - acc: 0.9505 - val\_loss: 0.0082 - val\_acc: 0.9473
+Epoch 208/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0080 - acc: 0.9504 - val\_loss: 0.0082 - val\_acc: 0.9471
+Epoch 209/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0080 - acc: 0.9506 - val\_loss: 0.0082 - val\_acc: 0.9474
+Epoch 210/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0080 - acc: 0.9506 - val\_loss: 0.0082 - val\_acc: 0.9476
+Epoch 211/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0080 - acc: 0.9507 - val\_loss: 0.0082 - val\_acc: 0.9475
+Epoch 212/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0080 - acc: 0.9507 - val\_loss: 0.0082 - val\_acc: 0.9476
+Epoch 213/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0080 - acc: 0.9509 - val\_loss: 0.0082 - val\_acc: 0.9476
+Epoch 214/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0080 - acc: 0.9509 - val\_loss: 0.0082 - val\_acc: 0.9477
+Epoch 215/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0079 - acc: 0.9510 - val\_loss: 0.0082 - val\_acc: 0.9477
+Epoch 216/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0079 - acc: 0.9511 - val\_loss: 0.0082 - val\_acc: 0.9475
+Epoch 217/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0079 - acc: 0.9511 - val\_loss: 0.0082 - val\_acc: 0.9478
+Epoch 218/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0079 - acc: 0.9511 - val\_loss: 0.0082 - val\_acc: 0.9479
+Epoch 219/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0079 - acc: 0.9512 - val\_loss: 0.0082 - val\_acc: 0.9478
+Epoch 220/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0079 - acc: 0.9512 - val\_loss: 0.0081 - val\_acc: 0.9479
+Epoch 221/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0079 - acc: 0.9512 - val\_loss: 0.0081 - val\_acc: 0.9478
+Epoch 222/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0079 - acc: 0.9512 - val\_loss: 0.0081 - val\_acc: 0.9479
+Epoch 223/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0079 - acc: 0.9514 - val\_loss: 0.0081 - val\_acc: 0.9479
+Epoch 224/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0079 - acc: 0.9514 - val\_loss: 0.0081 - val\_acc: 0.9480
+Epoch 225/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0079 - acc: 0.9515 - val\_loss: 0.0081 - val\_acc: 0.9481
+Epoch 226/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9516 - val\_loss: 0.0081 - val\_acc: 0.9481
+Epoch 227/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9516 - val\_loss: 0.0081 - val\_acc: 0.9481
+Epoch 228/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0078 - acc: 0.9516 - val\_loss: 0.0081 - val\_acc: 0.9484
+Epoch 229/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0078 - acc: 0.9518 - val\_loss: 0.0081 - val\_acc: 0.9485
+Epoch 230/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9518 - val\_loss: 0.0081 - val\_acc: 0.9483
+Epoch 231/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0078 - acc: 0.9519 - val\_loss: 0.0081 - val\_acc: 0.9485
+Epoch 232/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9519 - val\_loss: 0.0081 - val\_acc: 0.9482
+Epoch 233/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9519 - val\_loss: 0.0081 - val\_acc: 0.9487
+Epoch 234/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0078 - acc: 0.9521 - val\_loss: 0.0080 - val\_acc: 0.9487
+Epoch 235/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0078 - acc: 0.9523 - val\_loss: 0.0080 - val\_acc: 0.9487
+Epoch 236/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0078 - acc: 0.9524 - val\_loss: 0.0080 - val\_acc: 0.9485
+Epoch 237/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9523 - val\_loss: 0.0080 - val\_acc: 0.9487
+Epoch 238/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0077 - acc: 0.9524 - val\_loss: 0.0080 - val\_acc: 0.9490
+Epoch 239/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0077 - acc: 0.9524 - val\_loss: 0.0080 - val\_acc: 0.9487
+Epoch 240/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0077 - acc: 0.9526 - val\_loss: 0.0080 - val\_acc: 0.9490
+Epoch 241/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0077 - acc: 0.9525 - val\_loss: 0.0080 - val\_acc: 0.9489
+Epoch 242/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9527 - val\_loss: 0.0080 - val\_acc: 0.9489
+Epoch 243/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9529 - val\_loss: 0.0080 - val\_acc: 0.9490
+Epoch 244/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0077 - acc: 0.9528 - val\_loss: 0.0080 - val\_acc: 0.9491
+Epoch 245/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0077 - acc: 0.9528 - val\_loss: 0.0080 - val\_acc: 0.9489
+Epoch 246/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9528 - val\_loss: 0.0080 - val\_acc: 0.9489
+Epoch 247/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9530 - val\_loss: 0.0079 - val\_acc: 0.9491
+Epoch 248/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0077 - acc: 0.9531 - val\_loss: 0.0079 - val\_acc: 0.9490
+Epoch 249/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0076 - acc: 0.9532 - val\_loss: 0.0079 - val\_acc: 0.9494
+Epoch 250/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0076 - acc: 0.9531 - val\_loss: 0.0079 - val\_acc: 0.9497
+Epoch 251/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0076 - acc: 0.9532 - val\_loss: 0.0079 - val\_acc: 0.9495
+Epoch 252/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0076 - acc: 0.9533 - val\_loss: 0.0079 - val\_acc: 0.9496
+Epoch 253/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0076 - acc: 0.9533 - val\_loss: 0.0079 - val\_acc: 0.9496
+Epoch 254/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0076 - acc: 0.9533 - val\_loss: 0.0079 - val\_acc: 0.9498
+Epoch 255/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0076 - acc: 0.9533 - val\_loss: 0.0079 - val\_acc: 0.9495
+Epoch 256/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0076 - acc: 0.9535 - val\_loss: 0.0079 - val\_acc: 0.9496
+Epoch 257/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0076 - acc: 0.9535 - val\_loss: 0.0079 - val\_acc: 0.9497
+Epoch 258/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0076 - acc: 0.9536 - val\_loss: 0.0079 - val\_acc: 0.9499
+Epoch 259/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0076 - acc: 0.9536 - val\_loss: 0.0079 - val\_acc: 0.9495
+Epoch 260/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0076 - acc: 0.9537 - val\_loss: 0.0079 - val\_acc: 0.9496
+Epoch 261/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9537 - val\_loss: 0.0079 - val\_acc: 0.9496
+Epoch 262/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0075 - acc: 0.9538 - val\_loss: 0.0078 - val\_acc: 0.9497
+Epoch 263/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0075 - acc: 0.9538 - val\_loss: 0.0078 - val\_acc: 0.9499
+Epoch 264/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0075 - acc: 0.9539 - val\_loss: 0.0078 - val\_acc: 0.9499
+Epoch 265/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0075 - acc: 0.9538 - val\_loss: 0.0078 - val\_acc: 0.9498
+Epoch 266/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9539 - val\_loss: 0.0078 - val\_acc: 0.9498
+Epoch 267/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9539 - val\_loss: 0.0078 - val\_acc: 0.9500
+Epoch 268/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0075 - acc: 0.9539 - val\_loss: 0.0078 - val\_acc: 0.9500
+Epoch 269/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9541 - val\_loss: 0.0078 - val\_acc: 0.9500
+Epoch 270/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0075 - acc: 0.9540 - val\_loss: 0.0078 - val\_acc: 0.9502
+Epoch 271/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9542 - val\_loss: 0.0078 - val\_acc: 0.9501
+Epoch 272/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0075 - acc: 0.9544 - val\_loss: 0.0078 - val\_acc: 0.9501
+Epoch 273/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0075 - acc: 0.9543 - val\_loss: 0.0078 - val\_acc: 0.9504
+Epoch 274/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0074 - acc: 0.9543 - val\_loss: 0.0078 - val\_acc: 0.9502
+Epoch 275/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0074 - acc: 0.9543 - val\_loss: 0.0078 - val\_acc: 0.9504
+Epoch 276/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0074 - acc: 0.9545 - val\_loss: 0.0078 - val\_acc: 0.9506
+Epoch 277/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0074 - acc: 0.9546 - val\_loss: 0.0077 - val\_acc: 0.9505
+Epoch 278/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9547 - val\_loss: 0.0077 - val\_acc: 0.9505
+Epoch 279/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9546 - val\_loss: 0.0077 - val\_acc: 0.9506
+Epoch 280/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9546 - val\_loss: 0.0077 - val\_acc: 0.9506
+Epoch 281/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9548 - val\_loss: 0.0077 - val\_acc: 0.9505
+Epoch 282/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9548 - val\_loss: 0.0077 - val\_acc: 0.9506
+Epoch 283/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9549 - val\_loss: 0.0077 - val\_acc: 0.9508
+Epoch 284/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0074 - acc: 0.9550 - val\_loss: 0.0077 - val\_acc: 0.9507
+Epoch 285/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0074 - acc: 0.9548 - val\_loss: 0.0077 - val\_acc: 0.9507
+Epoch 286/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9550 - val\_loss: 0.0077 - val\_acc: 0.9508
+Epoch 287/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9550 - val\_loss: 0.0077 - val\_acc: 0.9507
+Epoch 288/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9551 - val\_loss: 0.0077 - val\_acc: 0.9508
+Epoch 289/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9552 - val\_loss: 0.0077 - val\_acc: 0.9510
+Epoch 290/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9553 - val\_loss: 0.0077 - val\_acc: 0.9513
+Epoch 291/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9553 - val\_loss: 0.0077 - val\_acc: 0.9514
+Epoch 292/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0073 - acc: 0.9554 - val\_loss: 0.0076 - val\_acc: 0.9511
+Epoch 293/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0073 - acc: 0.9554 - val\_loss: 0.0076 - val\_acc: 0.9513
+Epoch 294/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0073 - acc: 0.9556 - val\_loss: 0.0076 - val\_acc: 0.9512
+Epoch 295/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0073 - acc: 0.9554 - val\_loss: 0.0076 - val\_acc: 0.9514
+Epoch 296/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9556 - val\_loss: 0.0076 - val\_acc: 0.9511
+Epoch 297/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9557 - val\_loss: 0.0076 - val\_acc: 0.9510
+Epoch 298/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0073 - acc: 0.9556 - val\_loss: 0.0076 - val\_acc: 0.9514
+Epoch 299/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0073 - acc: 0.9557 - val\_loss: 0.0076 - val\_acc: 0.9514
+Epoch 300/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9558 - val\_loss: 0.0076 - val\_acc: 0.9517
+Epoch 301/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9558 - val\_loss: 0.0076 - val\_acc: 0.9513
+Epoch 302/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0072 - acc: 0.9559 - val\_loss: 0.0076 - val\_acc: 0.9517
+Epoch 303/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9560 - val\_loss: 0.0076 - val\_acc: 0.9516
+Epoch 304/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0072 - acc: 0.9560 - val\_loss: 0.0076 - val\_acc: 0.9517
+Epoch 305/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9560 - val\_loss: 0.0076 - val\_acc: 0.9516
+Epoch 306/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9559 - val\_loss: 0.0076 - val\_acc: 0.9520
+Epoch 307/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0072 - acc: 0.9561 - val\_loss: 0.0076 - val\_acc: 0.9523
+Epoch 308/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9562 - val\_loss: 0.0075 - val\_acc: 0.9521
+Epoch 309/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0072 - acc: 0.9562 - val\_loss: 0.0075 - val\_acc: 0.9521
+Epoch 310/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0072 - acc: 0.9562 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 311/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0072 - acc: 0.9563 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 312/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0072 - acc: 0.9563 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 313/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0071 - acc: 0.9564 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 314/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9565 - val\_loss: 0.0075 - val\_acc: 0.9523
+Epoch 315/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9565 - val\_loss: 0.0075 - val\_acc: 0.9521
+Epoch 316/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9567 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 317/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9564 - val\_loss: 0.0075 - val\_acc: 0.9522
+Epoch 318/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9566 - val\_loss: 0.0075 - val\_acc: 0.9523
+Epoch 319/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9567 - val\_loss: 0.0075 - val\_acc: 0.9525
+Epoch 320/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9567 - val\_loss: 0.0075 - val\_acc: 0.9526
+Epoch 321/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0071 - acc: 0.9567 - val\_loss: 0.0075 - val\_acc: 0.9526
+Epoch 322/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9569 - val\_loss: 0.0075 - val\_acc: 0.9523
+Epoch 323/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0071 - acc: 0.9569 - val\_loss: 0.0074 - val\_acc: 0.9526
+Epoch 324/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0071 - acc: 0.9569 - val\_loss: 0.0074 - val\_acc: 0.9527
+Epoch 325/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0071 - acc: 0.9570 - val\_loss: 0.0074 - val\_acc: 0.9527
+Epoch 326/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0071 - acc: 0.9571 - val\_loss: 0.0074 - val\_acc: 0.9527
+Epoch 327/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0070 - acc: 0.9570 - val\_loss: 0.0074 - val\_acc: 0.9527
+Epoch 328/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0070 - acc: 0.9571 - val\_loss: 0.0074 - val\_acc: 0.9529
+Epoch 329/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9571 - val\_loss: 0.0074 - val\_acc: 0.9530
+Epoch 330/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0070 - acc: 0.9573 - val\_loss: 0.0074 - val\_acc: 0.9533
+Epoch 331/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0070 - acc: 0.9572 - val\_loss: 0.0074 - val\_acc: 0.9527
+Epoch 332/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9574 - val\_loss: 0.0074 - val\_acc: 0.9528
+Epoch 333/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0070 - acc: 0.9573 - val\_loss: 0.0074 - val\_acc: 0.9529
+Epoch 334/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0070 - acc: 0.9575 - val\_loss: 0.0074 - val\_acc: 0.9530
+Epoch 335/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9575 - val\_loss: 0.0074 - val\_acc: 0.9531
+Epoch 336/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9574 - val\_loss: 0.0074 - val\_acc: 0.9531
+Epoch 337/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0070 - acc: 0.9576 - val\_loss: 0.0074 - val\_acc: 0.9531
+Epoch 338/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0070 - acc: 0.9576 - val\_loss: 0.0074 - val\_acc: 0.9532
+Epoch 339/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0070 - acc: 0.9577 - val\_loss: 0.0074 - val\_acc: 0.9532
+Epoch 340/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9577 - val\_loss: 0.0073 - val\_acc: 0.9531
+Epoch 341/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0070 - acc: 0.9578 - val\_loss: 0.0073 - val\_acc: 0.9532
+Epoch 342/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0069 - acc: 0.9578 - val\_loss: 0.0073 - val\_acc: 0.9534
+Epoch 343/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0069 - acc: 0.9577 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 344/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0069 - acc: 0.9578 - val\_loss: 0.0073 - val\_acc: 0.9532
+Epoch 345/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0069 - acc: 0.9579 - val\_loss: 0.0073 - val\_acc: 0.9532
+Epoch 346/400
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0069 - acc: 0.9580 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 347/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0069 - acc: 0.9579 - val\_loss: 0.0073 - val\_acc: 0.9532
+Epoch 348/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0069 - acc: 0.9580 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 349/400
+60000/60000 [==============================] - 2s 33us/step - loss: 0.0069 - acc: 0.9580 - val\_loss: 0.0073 - val\_acc: 0.9535
+Epoch 350/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0069 - acc: 0.9581 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 351/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0069 - acc: 0.9581 - val\_loss: 0.0073 - val\_acc: 0.9534
+Epoch 352/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0069 - acc: 0.9582 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 353/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0069 - acc: 0.9582 - val\_loss: 0.0073 - val\_acc: 0.9533
+Epoch 354/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0069 - acc: 0.9582 - val\_loss: 0.0073 - val\_acc: 0.9534
+Epoch 355/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0069 - acc: 0.9583 - val\_loss: 0.0073 - val\_acc: 0.9534
+Epoch 356/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9584 - val\_loss: 0.0073 - val\_acc: 0.9535
+Epoch 357/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9584 - val\_loss: 0.0072 - val\_acc: 0.9535
+Epoch 358/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9584 - val\_loss: 0.0072 - val\_acc: 0.9534
+Epoch 359/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9585 - val\_loss: 0.0072 - val\_acc: 0.9535
+Epoch 360/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9585 - val\_loss: 0.0072 - val\_acc: 0.9536
+Epoch 361/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0068 - acc: 0.9585 - val\_loss: 0.0072 - val\_acc: 0.9534
+Epoch 362/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0068 - acc: 0.9586 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 363/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9587 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 364/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9587 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 365/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9587 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 366/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9589 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 367/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9588 - val\_loss: 0.0072 - val\_acc: 0.9538
+Epoch 368/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9589 - val\_loss: 0.0072 - val\_acc: 0.9539
+Epoch 369/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9589 - val\_loss: 0.0072 - val\_acc: 0.9539
+Epoch 370/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0068 - acc: 0.9592 - val\_loss: 0.0072 - val\_acc: 0.9541
+Epoch 371/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0068 - acc: 0.9591 - val\_loss: 0.0072 - val\_acc: 0.9540
+Epoch 372/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0067 - acc: 0.9591 - val\_loss: 0.0072 - val\_acc: 0.9540
+Epoch 373/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9592 - val\_loss: 0.0072 - val\_acc: 0.9545
+Epoch 374/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9593 - val\_loss: 0.0072 - val\_acc: 0.9544
+Epoch 375/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9593 - val\_loss: 0.0072 - val\_acc: 0.9543
+Epoch 376/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9594 - val\_loss: 0.0071 - val\_acc: 0.9542
+Epoch 377/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9594 - val\_loss: 0.0071 - val\_acc: 0.9546
+Epoch 378/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0067 - acc: 0.9596 - val\_loss: 0.0071 - val\_acc: 0.9546
+Epoch 379/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0067 - acc: 0.9595 - val\_loss: 0.0071 - val\_acc: 0.9546
+Epoch 380/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9595 - val\_loss: 0.0071 - val\_acc: 0.9545
+Epoch 381/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9596 - val\_loss: 0.0071 - val\_acc: 0.9544
+Epoch 382/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9595 - val\_loss: 0.0071 - val\_acc: 0.9550
+Epoch 383/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0067 - acc: 0.9597 - val\_loss: 0.0071 - val\_acc: 0.9547
+Epoch 384/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9598 - val\_loss: 0.0071 - val\_acc: 0.9548
+Epoch 385/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9598 - val\_loss: 0.0071 - val\_acc: 0.9547
+Epoch 386/400
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0067 - acc: 0.9599 - val\_loss: 0.0071 - val\_acc: 0.9550
+Epoch 387/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0066 - acc: 0.9599 - val\_loss: 0.0071 - val\_acc: 0.9548
+Epoch 388/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9599 - val\_loss: 0.0071 - val\_acc: 0.9550
+Epoch 389/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9599 - val\_loss: 0.0071 - val\_acc: 0.9547
+Epoch 390/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0066 - acc: 0.9600 - val\_loss: 0.0071 - val\_acc: 0.9551
+Epoch 391/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9601 - val\_loss: 0.0071 - val\_acc: 0.9552
+Epoch 392/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9601 - val\_loss: 0.0071 - val\_acc: 0.9551
+Epoch 393/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9601 - val\_loss: 0.0071 - val\_acc: 0.9550
+Epoch 394/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0066 - acc: 0.9603 - val\_loss: 0.0070 - val\_acc: 0.9549
+Epoch 395/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9602 - val\_loss: 0.0070 - val\_acc: 0.9553
+Epoch 396/400
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0066 - acc: 0.9602 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 397/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9604 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 398/400
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0066 - acc: 0.9604 - val\_loss: 0.0070 - val\_acc: 0.9555
+Epoch 399/400
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0066 - acc: 0.9605 - val\_loss: 0.0070 - val\_acc: 0.9553
+Epoch 400/400
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9604 - val\_loss: 0.0070 - val\_acc: 0.9552
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} <keras.callbacks.History at 0x1e520dd6128>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,}\PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 60000 samples, validate on 10000 samples
+Epoch 1/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0066 - acc: 0.9605 - val\_loss: 0.0070 - val\_acc: 0.9555
+Epoch 2/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0066 - acc: 0.9605 - val\_loss: 0.0070 - val\_acc: 0.9553
+Epoch 3/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0066 - acc: 0.9604 - val\_loss: 0.0070 - val\_acc: 0.9552
+Epoch 4/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0065 - acc: 0.9607 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 5/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9606 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 6/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9607 - val\_loss: 0.0070 - val\_acc: 0.9553
+Epoch 7/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9607 - val\_loss: 0.0070 - val\_acc: 0.9553
+Epoch 8/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9608 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 9/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9609 - val\_loss: 0.0070 - val\_acc: 0.9554
+Epoch 10/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9610 - val\_loss: 0.0070 - val\_acc: 0.9557
+Epoch 11/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9608 - val\_loss: 0.0070 - val\_acc: 0.9555
+Epoch 12/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9609 - val\_loss: 0.0070 - val\_acc: 0.9556
+Epoch 13/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9612 - val\_loss: 0.0070 - val\_acc: 0.9557
+Epoch 14/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9612 - val\_loss: 0.0069 - val\_acc: 0.9558
+Epoch 15/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9611 - val\_loss: 0.0069 - val\_acc: 0.9555
+Epoch 16/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9612 - val\_loss: 0.0069 - val\_acc: 0.9555
+Epoch 17/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9612 - val\_loss: 0.0069 - val\_acc: 0.9556
+Epoch 18/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0065 - acc: 0.9613 - val\_loss: 0.0069 - val\_acc: 0.9554
+Epoch 19/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0065 - acc: 0.9613 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 20/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9615 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 21/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9613 - val\_loss: 0.0069 - val\_acc: 0.9554
+Epoch 22/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9615 - val\_loss: 0.0069 - val\_acc: 0.9554
+Epoch 23/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9614 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 24/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9616 - val\_loss: 0.0069 - val\_acc: 0.9559
+Epoch 25/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0064 - acc: 0.9615 - val\_loss: 0.0069 - val\_acc: 0.9559
+Epoch 26/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0064 - acc: 0.9617 - val\_loss: 0.0069 - val\_acc: 0.9556
+Epoch 27/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9615 - val\_loss: 0.0069 - val\_acc: 0.9558
+Epoch 28/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0064 - acc: 0.9618 - val\_loss: 0.0069 - val\_acc: 0.9559
+Epoch 29/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0064 - acc: 0.9618 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 30/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0064 - acc: 0.9618 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 31/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9617 - val\_loss: 0.0069 - val\_acc: 0.9557
+Epoch 32/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9617 - val\_loss: 0.0069 - val\_acc: 0.9556
+Epoch 33/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9618 - val\_loss: 0.0069 - val\_acc: 0.9558
+Epoch 34/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9620 - val\_loss: 0.0068 - val\_acc: 0.9557
+Epoch 35/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9620 - val\_loss: 0.0068 - val\_acc: 0.9558
+Epoch 36/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9620 - val\_loss: 0.0068 - val\_acc: 0.9560
+Epoch 37/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0064 - acc: 0.9620 - val\_loss: 0.0068 - val\_acc: 0.9558
+Epoch 38/200
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0063 - acc: 0.9622 - val\_loss: 0.0068 - val\_acc: 0.9560
+Epoch 39/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9622 - val\_loss: 0.0068 - val\_acc: 0.9559
+Epoch 40/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9559
+Epoch 41/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9558
+Epoch 42/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 43/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 44/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 45/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9623 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 46/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9625 - val\_loss: 0.0068 - val\_acc: 0.9563
+Epoch 47/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9625 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 48/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9626 - val\_loss: 0.0068 - val\_acc: 0.9563
+Epoch 49/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9625 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 50/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9625 - val\_loss: 0.0068 - val\_acc: 0.9562
+Epoch 51/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9625 - val\_loss: 0.0068 - val\_acc: 0.9562
+Epoch 52/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0063 - acc: 0.9626 - val\_loss: 0.0068 - val\_acc: 0.9562
+Epoch 53/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0063 - acc: 0.9628 - val\_loss: 0.0068 - val\_acc: 0.9561
+Epoch 54/200
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0063 - acc: 0.9627 - val\_loss: 0.0068 - val\_acc: 0.9562
+Epoch 55/200
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0063 - acc: 0.9627 - val\_loss: 0.0068 - val\_acc: 0.9562
+Epoch 56/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0062 - acc: 0.9627 - val\_loss: 0.0067 - val\_acc: 0.9564
+Epoch 57/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0062 - acc: 0.9628 - val\_loss: 0.0067 - val\_acc: 0.9566
+Epoch 58/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0062 - acc: 0.9628 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 59/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9626 - val\_loss: 0.0067 - val\_acc: 0.9566
+Epoch 60/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9628 - val\_loss: 0.0067 - val\_acc: 0.9567
+Epoch 61/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9628 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 62/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9628 - val\_loss: 0.0067 - val\_acc: 0.9566
+Epoch 63/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9629 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 64/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9630 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 65/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9631 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 66/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9630 - val\_loss: 0.0067 - val\_acc: 0.9567
+Epoch 67/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9631 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 68/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9630 - val\_loss: 0.0067 - val\_acc: 0.9567
+Epoch 69/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9633 - val\_loss: 0.0067 - val\_acc: 0.9566
+Epoch 70/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9632 - val\_loss: 0.0067 - val\_acc: 0.9565
+Epoch 71/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0062 - acc: 0.9633 - val\_loss: 0.0067 - val\_acc: 0.9568
+Epoch 72/200
+60000/60000 [==============================] - 2s 31us/step - loss: 0.0062 - acc: 0.9633 - val\_loss: 0.0067 - val\_acc: 0.9568
+Epoch 73/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0062 - acc: 0.9633 - val\_loss: 0.0067 - val\_acc: 0.9568
+Epoch 74/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9634 - val\_loss: 0.0067 - val\_acc: 0.9569
+Epoch 75/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0061 - acc: 0.9634 - val\_loss: 0.0067 - val\_acc: 0.9567
+Epoch 76/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9635 - val\_loss: 0.0067 - val\_acc: 0.9568
+Epoch 77/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9635 - val\_loss: 0.0067 - val\_acc: 0.9571
+Epoch 78/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9636 - val\_loss: 0.0067 - val\_acc: 0.9571
+Epoch 79/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9636 - val\_loss: 0.0067 - val\_acc: 0.9571
+Epoch 80/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9636 - val\_loss: 0.0066 - val\_acc: 0.9572
+Epoch 81/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9636 - val\_loss: 0.0066 - val\_acc: 0.9570
+Epoch 82/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9637 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 83/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9637 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 84/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9637 - val\_loss: 0.0066 - val\_acc: 0.9570
+Epoch 85/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9639 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 86/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9639 - val\_loss: 0.0066 - val\_acc: 0.9570
+Epoch 87/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9639 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 88/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9639 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 89/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0061 - acc: 0.9640 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 90/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9641 - val\_loss: 0.0066 - val\_acc: 0.9572
+Epoch 91/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0061 - acc: 0.9641 - val\_loss: 0.0066 - val\_acc: 0.9572
+Epoch 92/200
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0061 - acc: 0.9641 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 93/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9641 - val\_loss: 0.0066 - val\_acc: 0.9571
+Epoch 94/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0060 - acc: 0.9642 - val\_loss: 0.0066 - val\_acc: 0.9573
+Epoch 95/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9643 - val\_loss: 0.0066 - val\_acc: 0.9573
+Epoch 96/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9642 - val\_loss: 0.0066 - val\_acc: 0.9573
+Epoch 97/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9642 - val\_loss: 0.0066 - val\_acc: 0.9574
+Epoch 98/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0060 - acc: 0.9643 - val\_loss: 0.0066 - val\_acc: 0.9576
+Epoch 99/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9644 - val\_loss: 0.0066 - val\_acc: 0.9576
+Epoch 100/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9644 - val\_loss: 0.0066 - val\_acc: 0.9576
+Epoch 101/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9645 - val\_loss: 0.0066 - val\_acc: 0.9576
+Epoch 102/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0060 - acc: 0.9644 - val\_loss: 0.0066 - val\_acc: 0.9576
+Epoch 103/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0060 - acc: 0.9646 - val\_loss: 0.0065 - val\_acc: 0.9575
+Epoch 104/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0060 - acc: 0.9644 - val\_loss: 0.0065 - val\_acc: 0.9577
+Epoch 105/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9646 - val\_loss: 0.0065 - val\_acc: 0.9577
+Epoch 106/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9645 - val\_loss: 0.0065 - val\_acc: 0.9578
+Epoch 107/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9646 - val\_loss: 0.0065 - val\_acc: 0.9577
+Epoch 108/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9648 - val\_loss: 0.0065 - val\_acc: 0.9578
+Epoch 109/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9647 - val\_loss: 0.0065 - val\_acc: 0.9579
+Epoch 110/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9648 - val\_loss: 0.0065 - val\_acc: 0.9578
+Epoch 111/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9648 - val\_loss: 0.0065 - val\_acc: 0.9580
+Epoch 112/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0060 - acc: 0.9648 - val\_loss: 0.0065 - val\_acc: 0.9580
+Epoch 113/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0059 - acc: 0.9648 - val\_loss: 0.0065 - val\_acc: 0.9580
+Epoch 114/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0059 - acc: 0.9649 - val\_loss: 0.0065 - val\_acc: 0.9581
+Epoch 115/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0059 - acc: 0.9650 - val\_loss: 0.0065 - val\_acc: 0.9580
+Epoch 116/200
+60000/60000 [==============================] - 2s 28us/step - loss: 0.0059 - acc: 0.9649 - val\_loss: 0.0065 - val\_acc: 0.9580
+Epoch 117/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0059 - acc: 0.9650 - val\_loss: 0.0065 - val\_acc: 0.9582
+Epoch 118/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9651 - val\_loss: 0.0065 - val\_acc: 0.9585
+Epoch 119/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9651 - val\_loss: 0.0065 - val\_acc: 0.9582
+Epoch 120/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9651 - val\_loss: 0.0065 - val\_acc: 0.9581
+Epoch 121/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9652 - val\_loss: 0.0065 - val\_acc: 0.9582
+Epoch 122/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9652 - val\_loss: 0.0065 - val\_acc: 0.9585
+Epoch 123/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9653 - val\_loss: 0.0065 - val\_acc: 0.9586
+Epoch 124/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9652 - val\_loss: 0.0065 - val\_acc: 0.9585
+Epoch 125/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9653 - val\_loss: 0.0065 - val\_acc: 0.9585
+Epoch 126/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9583
+Epoch 127/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9654 - val\_loss: 0.0064 - val\_acc: 0.9586
+Epoch 128/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9654 - val\_loss: 0.0064 - val\_acc: 0.9585
+Epoch 129/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9587
+Epoch 130/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9586
+Epoch 131/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9656 - val\_loss: 0.0064 - val\_acc: 0.9586
+Epoch 132/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9585
+Epoch 133/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0059 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9588
+Epoch 134/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9655 - val\_loss: 0.0064 - val\_acc: 0.9589
+Epoch 135/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9656 - val\_loss: 0.0064 - val\_acc: 0.9586
+Epoch 136/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9657 - val\_loss: 0.0064 - val\_acc: 0.9587
+Epoch 137/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9656 - val\_loss: 0.0064 - val\_acc: 0.9591
+Epoch 138/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9658 - val\_loss: 0.0064 - val\_acc: 0.9587
+Epoch 139/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9658 - val\_loss: 0.0064 - val\_acc: 0.9587
+Epoch 140/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9657 - val\_loss: 0.0064 - val\_acc: 0.9592
+Epoch 141/200
+60000/60000 [==============================] - 2s 29us/step - loss: 0.0058 - acc: 0.9659 - val\_loss: 0.0064 - val\_acc: 0.9589
+Epoch 142/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9658 - val\_loss: 0.0064 - val\_acc: 0.9592
+Epoch 143/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9659 - val\_loss: 0.0064 - val\_acc: 0.9590
+Epoch 144/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9659 - val\_loss: 0.0064 - val\_acc: 0.9591
+Epoch 145/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9659 - val\_loss: 0.0064 - val\_acc: 0.9590
+Epoch 146/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9658 - val\_loss: 0.0064 - val\_acc: 0.9591
+Epoch 147/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9660 - val\_loss: 0.0064 - val\_acc: 0.9594
+Epoch 148/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9660 - val\_loss: 0.0064 - val\_acc: 0.9592
+Epoch 149/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9661 - val\_loss: 0.0064 - val\_acc: 0.9592
+Epoch 150/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0058 - acc: 0.9660 - val\_loss: 0.0064 - val\_acc: 0.9591
+Epoch 151/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9660 - val\_loss: 0.0064 - val\_acc: 0.9593
+Epoch 152/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9661 - val\_loss: 0.0064 - val\_acc: 0.9593
+Epoch 153/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9662 - val\_loss: 0.0063 - val\_acc: 0.9595
+Epoch 154/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0058 - acc: 0.9662 - val\_loss: 0.0063 - val\_acc: 0.9594
+Epoch 155/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9662 - val\_loss: 0.0063 - val\_acc: 0.9594
+Epoch 156/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0057 - acc: 0.9661 - val\_loss: 0.0063 - val\_acc: 0.9597
+Epoch 157/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9662 - val\_loss: 0.0063 - val\_acc: 0.9596
+Epoch 158/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9663 - val\_loss: 0.0063 - val\_acc: 0.9596
+Epoch 159/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9663 - val\_loss: 0.0063 - val\_acc: 0.9594
+Epoch 160/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9663 - val\_loss: 0.0063 - val\_acc: 0.9594
+Epoch 161/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9664 - val\_loss: 0.0063 - val\_acc: 0.9597
+Epoch 162/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9664 - val\_loss: 0.0063 - val\_acc: 0.9596
+Epoch 163/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9662 - val\_loss: 0.0063 - val\_acc: 0.9596
+Epoch 164/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9664 - val\_loss: 0.0063 - val\_acc: 0.9595
+Epoch 165/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9664 - val\_loss: 0.0063 - val\_acc: 0.9597
+Epoch 166/200
+60000/60000 [==============================] - 2s 30us/step - loss: 0.0057 - acc: 0.9665 - val\_loss: 0.0063 - val\_acc: 0.9598
+Epoch 167/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9664 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 168/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9665 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 169/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9666 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 170/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9666 - val\_loss: 0.0063 - val\_acc: 0.9598
+Epoch 171/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9666 - val\_loss: 0.0063 - val\_acc: 0.9600
+Epoch 172/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9667 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 173/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9667 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 174/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9668 - val\_loss: 0.0063 - val\_acc: 0.9603
+Epoch 175/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0057 - acc: 0.9667 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 176/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0057 - acc: 0.9668 - val\_loss: 0.0063 - val\_acc: 0.9601
+Epoch 177/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9668 - val\_loss: 0.0063 - val\_acc: 0.9600
+Epoch 178/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9667 - val\_loss: 0.0063 - val\_acc: 0.9599
+Epoch 179/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9668 - val\_loss: 0.0063 - val\_acc: 0.9600
+Epoch 180/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9668 - val\_loss: 0.0062 - val\_acc: 0.9598
+Epoch 181/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9669 - val\_loss: 0.0062 - val\_acc: 0.9600
+Epoch 182/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9669 - val\_loss: 0.0062 - val\_acc: 0.9600
+Epoch 183/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9668 - val\_loss: 0.0062 - val\_acc: 0.9599
+Epoch 184/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9670 - val\_loss: 0.0062 - val\_acc: 0.9602
+Epoch 185/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9670 - val\_loss: 0.0062 - val\_acc: 0.9601
+Epoch 186/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9670 - val\_loss: 0.0062 - val\_acc: 0.9603
+Epoch 187/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9670 - val\_loss: 0.0062 - val\_acc: 0.9603
+Epoch 188/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9671 - val\_loss: 0.0062 - val\_acc: 0.9602
+Epoch 189/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0056 - acc: 0.9671 - val\_loss: 0.0062 - val\_acc: 0.9603
+Epoch 190/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9672 - val\_loss: 0.0062 - val\_acc: 0.9604
+Epoch 191/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9671 - val\_loss: 0.0062 - val\_acc: 0.9603
+Epoch 192/200
+60000/60000 [==============================] - 2s 27us/step - loss: 0.0056 - acc: 0.9672 - val\_loss: 0.0062 - val\_acc: 0.9603
+Epoch 193/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9673 - val\_loss: 0.0062 - val\_acc: 0.9607
+Epoch 194/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9672 - val\_loss: 0.0062 - val\_acc: 0.9606
+Epoch 195/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9673 - val\_loss: 0.0062 - val\_acc: 0.9606
+Epoch 196/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9673 - val\_loss: 0.0062 - val\_acc: 0.9604
+Epoch 197/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9673 - val\_loss: 0.0062 - val\_acc: 0.9606
+Epoch 198/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9674 - val\_loss: 0.0062 - val\_acc: 0.9607
+Epoch 199/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0056 - acc: 0.9674 - val\_loss: 0.0062 - val\_acc: 0.9608
+Epoch 200/200
+60000/60000 [==============================] - 2s 26us/step - loss: 0.0055 - acc: 0.9674 - val\_loss: 0.0062 - val\_acc: 0.9608
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:} <keras.callbacks.History at 0x1e5273a8390>
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
