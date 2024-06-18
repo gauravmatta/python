@@ -10,6 +10,7 @@ channel.confirm_delivery()
 channel.tx_select()
 
 channel.exchange_declare(exchange='pubsub', exchange_type=ExchangeType.fanout)
+# Creates a durable queue
 channel.queue_declare('Test', durable=True)
 message = "Hello I want to broadcast this message"
 channel.basic_publish(exchange='pubsub', routing_key='', properties=pika.BasicProperties(
