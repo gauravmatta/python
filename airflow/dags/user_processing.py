@@ -32,4 +32,5 @@ def user_processing():
             condition = False
             fake_user = {}
         return PokeReturnValue(is_done=condition,xcom_value=fake_user)
+    is_api_available()
 user_processing()
