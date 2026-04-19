@@ -1,5 +1,9 @@
+import requests
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
-from airflow.sdk import dag
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.sdk import dag, task
+from airflow.sdk.bases.sensor import PokeReturnValue
+
 
 @dag
 def user_processing():
@@ -16,4 +20,17 @@ def user_processing():
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """ )
+
+    @task.sensor(poke_interval=30,timeout=300)
+    def is_api_available():
+        response=requests.get("https://api.github.com/users")
+        print(response.status_code)
+        if response.status_code == 200:
+            condition = True
+            fake_user=response.json()
+        else:
+            condition = False
+            fake_user = {}
+        return PokeReturnValue(is_done=condition,xcom_value=fake_user)
+    is_api_available()
 user_processing()
