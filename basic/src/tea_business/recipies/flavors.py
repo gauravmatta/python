@@ -3,3 +3,6 @@ def elachai_tea():
 
 def ginger_tea():
     return "Ginger Tea is ready"
+
+def lemon_tea():
+    return "Lemon Tea is ready"
