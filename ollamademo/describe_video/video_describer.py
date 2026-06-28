@@ -36,7 +36,7 @@ def video_to_frames(video_path):
 
     # Calculate frame skip interval (2 seconds worth of frames)
     fps = cap.get(cv2.CAP_PROP_FPS)
-    frame_interval = int(fps * 10)
+    frame_interval = int(fps * 2)
 
     frame_count = 0
     saved_frame_count = 0
