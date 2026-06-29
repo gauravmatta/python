@@ -49,12 +49,6 @@ def calculate_similarity(text1, text2):
     return similarity
 
 def calculate_similarity_vector(text1, text2):
-    # nlp(text1) processes the text and creates a Doc object.
-    # The .similarity() method compares the vector of Doc 1 with Doc 2.
-    # Under the hood, it performs a Dot Product divided by the magnitudes (Cosine Similarity).
-    #
-    # Note: The commented-out code shows the manual math (Vector1 @ Vector2 / Norms)
-    # which is what .similarity() does internally.
     vector1 = nlp(text1).vector
     vector2 = nlp(text2).vector
     similarity = vector1 @ vector2/(np.linalg.norm(vector1)*np.linalg.norm(vector2))
