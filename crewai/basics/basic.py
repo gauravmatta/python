@@ -10,6 +10,8 @@
 # This example creates a simple 1-Agent crew to demonstrate the syntax.
 #
 # Installation:
+# pip install streamlit==1.33.0 crewai langchain-ollama
+# Worked these versions on linux
 # pip install streamlit==1.33.0 crewai==0.64.0 langchain-community==0.2.17
 #
 # How to run:
@@ -17,7 +19,6 @@
 
 import streamlit as st
 from crewai import Agent, Task, Crew  # The 3 core building blocks of CrewAI
-from langchain_community.llms import Ollama
 
 st.title("Use Local Ollama LLM with CrewAI")
 
@@ -33,12 +34,13 @@ if button:
         # - goal: What is it trying to achieve?
         # - backstory: Context about its personality or expertise (helps the LLM roleplay).
         # - llm: Which model drives its brain? (LLM object, not a string)
-        llm = Ollama(model="llama3.1")
+        # llm = Ollama(model="llama3.1") // For Linux Local Run
         agent = Agent(
             role="Assistant",
             goal="Provide helpful responses based on user input.",
             backstory="This agent assists users by generating responses using a local Ollama LLM.",
-            llm=llm
+            llm="ollama/llama3.1",
+            # llm = llm // For linux local run
         )
 
         # --- Step 2: Define the Task ---
