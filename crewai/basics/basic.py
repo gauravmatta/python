@@ -44,7 +44,7 @@ button = st.button("Generate")
 if button:
     if prompt:
         # Initialize Ollama LLM
-        ollama_llm = Ollama(model="llama3.1", base_url="http://localhost:11434")
+        ollama_llm = Ollama(model="llama3.1")
 
         # --- Step 1: Define the Agent ---
         # An Agent is an autonomous unit. It needs:
