@@ -1,3 +1,15 @@
+# Compatibility shim for Python 3.14+: MUST be first!
+# Some packages expect ast.NameConstant which was replaced by ast.Constant in
+# newer Python versions. Provide a fallback so older packages (like crewai v0.11.2)
+# that reference ast.NameConstant still work.
+import ast
+# Backwards-compatibility shims for old `ast` names removed/changed in newer
+# Python versions. Map legacy nodes to `ast.Constant` so libraries that check
+# `ast.NameConstant`, `ast.Num`, `ast.Str`, etc. continue to work.
+for _name in ("NameConstant", "Num", "Str", "Bytes"):
+    if not hasattr(ast, _name):
+        setattr(ast, _name, ast.Constant)
+
 # Title: Use Local Ollama LLM with CrewAI
 #
 # Description:
@@ -9,16 +21,19 @@
 #
 # This example creates a simple 1-Agent crew to demonstrate the syntax.
 #
-# Installation:
-# pip install streamlit==1.33.0 crewai langchain-ollama
-# Worked these versions on linux
-# pip install streamlit==1.33.0 crewai==0.64.0 langchain-community==0.2.17
+# Installation (Working versions for Python 3.14):
+# PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1 pip install crewai==0.11.2 streamlit langchain-community==0.0.38
 #
 # How to run:
 # streamlit run basic.py
+#
+# Note: Make sure Ollama is running locally with the model you want to use
+# Example: ollama run llama3.1
 
 import streamlit as st
+
 from crewai import Agent, Task, Crew  # The 3 core building blocks of CrewAI
+from langchain_community.llms import Ollama
 
 st.title("Use Local Ollama LLM with CrewAI")
 
@@ -28,19 +43,20 @@ button = st.button("Generate")
 
 if button:
     if prompt:
+        # Initialize Ollama LLM
+        ollama_llm = Ollama(model="llama3.1", base_url="http://localhost:11434")
+
         # --- Step 1: Define the Agent ---
         # An Agent is an autonomous unit. It needs:
         # - role: What is its job title?
         # - goal: What is it trying to achieve?
         # - backstory: Context about its personality or expertise (helps the LLM roleplay).
         # - llm: Which model drives its brain? (LLM object, not a string)
-        # llm = Ollama(model="llama3.1") // For Linux Local Run
         agent = Agent(
             role="Assistant",
             goal="Provide helpful responses based on user input.",
             backstory="This agent assists users by generating responses using a local Ollama LLM.",
-            llm="ollama/llama3.1",
-            # llm = llm // For linux local run
+            llm=ollama_llm
         )
 
         # --- Step 2: Define the Task ---
