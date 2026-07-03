@@ -1,3 +1,19 @@
+# To use intel gpu install following
+# # Install Intel GPU drivers and oneAPI
+# # Then clone PyTorch
+# git clone https://github.com/pytorch/pytorch
+# cd pytorch
+# git submodule update --init --recursive
+#
+# # Install dependencies
+# pip install -r requirements.txt
+#
+# # Build with XPU support
+# python setup.py install -DUSE_XPU=ON
+# # Or with CMake:
+# mkdir build && cd build
+# cmake .. -DUSE_XPU=ON
+# make install
 import torch
 from diffusers import StableDiffusionXLPipeline, UNet2DConditionModel, EulerDiscreteScheduler
 from huggingface_hub import hf_hub_download
@@ -8,9 +24,9 @@ repo = "ByteDance/SDXL-Lightning"
 ckpt = "sdxl_lightning_4step_unet.safetensors" # Use the correct ckpt for your step setting!
 
 # Load model.
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda" if torch.cuda.is_available() else "xpu"
 unet = UNet2DConditionModel.from_config(base, subfolder="unet").to(device, torch.float16)
-unet.load_state_dict(load_file(hf_hub_download(repo, ckpt), device="cpu"))
+unet.load_state_dict(load_file(hf_hub_download(repo, ckpt), device=device))
 pipe = StableDiffusionXLPipeline.from_pretrained(base, unet=unet, torch_dtype=torch.float16, variant="fp16").to(device)
 
 # Ensure sampler uses "trailing" timesteps.
