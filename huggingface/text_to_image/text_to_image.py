@@ -117,6 +117,9 @@ device_for_loader = str(device)
 dtype_for_model = torch.float32 if device.type == "cpu" else torch.float16
 print(f"Using dtype: {dtype_for_model}")
 
+# Choose variant based on dtype: use fp16 variant only when using float16
+variant_for_model = "fp16" if dtype_for_model == torch.float16 else None
+
 
 # --- Configuration ---
 # The base model ID on Hugging Face. This provides the VAE, Text Encoders, and Tokenizer.
@@ -148,10 +151,16 @@ pipe = StableDiffusionXLPipeline.from_pretrained(
     base,
     unet=unet, # Inject our lightning-fast U-Net
 	torch_dtype=dtype_for_model, # Use appropriate precision: float32 on CPU, float16 on GPU
-    variant="fp16" # Download the fp16 version of the base model weights if available.
+	variant=variant_for_model # Download fp16 variant only when using float16; otherwise use default weights
 ).to(device) # Move the entire pipeline to the specified device.
-# Note: variant="fp16" will only download fp16 weights if torch_dtype is float16;
-# on CPU with float32, the base model will use the default (usually fp32) weights.
+
+# Ensure all components use the correct dtype, especially on CPU where float16 is unsupported
+if dtype_for_model == torch.float32:
+	# Explicitly convert all text encoders and VAE to float32 to avoid float16 issues on CPU
+	pipe.text_encoder = pipe.text_encoder.to(dtype=dtype_for_model)
+	pipe.text_encoder_2 = pipe.text_encoder_2.to(dtype=dtype_for_model)
+	pipe.vae = pipe.vae.to(dtype=dtype_for_model)
+	pipe.unet = pipe.unet.to(dtype=dtype_for_model)
 
 # --- Step 2: Configure the Scheduler ---
 # The Scheduler controls the noise removal process.
