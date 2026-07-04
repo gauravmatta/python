@@ -24,10 +24,10 @@ repo = "ByteDance/SDXL-Lightning"
 ckpt = "sdxl_lightning_4step_unet.safetensors" # Use the correct ckpt for your step setting!
 
 # Load model.
-device = "cuda" if torch.cuda.is_available() else "xpu"
-unet = UNet2DConditionModel.from_config(base, subfolder="unet").to(device, torch.float16)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+unet = UNet2DConditionModel.from_config(base, subfolder="unet").to(device, torch.float32)
 unet.load_state_dict(load_file(hf_hub_download(repo, ckpt), device=device))
-pipe = StableDiffusionXLPipeline.from_pretrained(base, unet=unet, torch_dtype=torch.float16, variant="fp16").to(device)
+pipe = StableDiffusionXLPipeline.from_pretrained(base, unet=unet, torch_dtype=torch.float32).to(device)
 
 # Ensure sampler uses "trailing" timesteps.
 pipe.scheduler = EulerDiscreteScheduler.from_config(pipe.scheduler.config, timestep_spacing="trailing")
