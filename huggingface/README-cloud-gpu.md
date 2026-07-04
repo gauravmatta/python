@@ -23,7 +23,7 @@ docker build \
 ```bash
 docker run --gpus all --ipc=host -v "$(pwd)":/workspace -w /workspace -it --rm hf-skyreels:gpu
 # then inside container, you can run:
-# python text_video/text_to_video.py
+# python text_video/text_to_speech.py
 # or python image_to_video/image_to_video.py --dry-run
 ```
 
@@ -31,7 +31,7 @@ docker run --gpus all --ipc=host -v "$(pwd)":/workspace -w /workspace -it --rm h
 
 ```bash
 # Run the text_to_video runner (this expects CUDA + a supported PyTorch wheel)
-docker run --gpus all --ipc=host -v "$(pwd)":/workspace -w /workspace -it --rm hf-skyreels:gpu python text_video/text_to_video.py
+docker run --gpus all --ipc=host -v "$(pwd)":/workspace -w /workspace -it --rm hf-skyreels:gpu python text_video/text_to_speech.py
 ```
 
 Provider-specific notes
