@@ -49,8 +49,15 @@ def ensure_skyreels_repo():
             print("Cloned. Installing dependencies (pip)...")
             req = os.path.join(REPO_DIR, "requirements.txt")
             if os.path.isfile(req):
-                # Install torch, diffusers, etc. from SkyReels-V2/requirements.txt (-q = quiet)
-                subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=True)
+                # Try to install from requirements.txt
+                result = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
+                # If torch installation fails (e.g., version not available), try latest compatible version
+                if result.returncode != 0:
+                    print("Retrying with compatible torch version...")
+                    # Install a newer torch version compatible with the environment
+                    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "torch>=2.5.1", "torchvision>=0.20.1"], check=False)
+                    # Try requirements again, which may now skip torch/torchvision if already satisfied
+                    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
             for pkg in ["decord", "imageio", "moviepy"]:
                 # Extra deps the pipeline uses; check=False so one failure doesn't stop the rest
                 subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
@@ -76,7 +83,10 @@ def check_cuda():
     except Exception:
         pass
     print("ERROR: PyTorch is not using CUDA. SkyReels-V2 needs an NVIDIA GPU.")
-    print("Install: pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121")
+    print("Install GPU-enabled PyTorch with:")
+    print("  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121")
+    print("Or for newer CUDA 12.4:")
+    print("  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124")
     return False
 
 

@@ -14,7 +14,7 @@
 
 # ============ CONFIG (edit these, then save and run) ============
 # PROMPT: Text description of the video. More specific = more controlled result. With IMAGE_PATH, include person's appearance.
-PROMPT = "A man with dark hair, short beard, wearing a blue suit waves and smiles at the camera."
+PROMPT = "A girl in black t shirt and black jeans dancing with panda."
 # DURATION_SECONDS: Target length. 5→97 frames, 12→257, 18→377, 35→737. Longer = more VRAM and time.
 DURATION_SECONDS = 5
 # SEED: None = different video each run; int (e.g. 42) = same video every time (reproducible).
@@ -71,7 +71,15 @@ def ensure_skyreels_repo(skip_install=False):
                 print("Installing dependencies (pip)...")
                 req = os.path.join(REPO_DIR, "requirements.txt")
                 if os.path.isfile(req):
-                    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=True)
+                    # Try to install from requirements.txt
+                    result = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
+                    # If torch installation fails (e.g., version not available), try latest compatible version
+                    if result.returncode != 0:
+                        print("Retrying with compatible torch version...")
+                        # Install a newer torch version compatible with the environment
+                        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "torch>=2.5.1", "torchvision>=0.20.1"], check=False)
+                        # Try requirements again, which may now skip torch/torchvision if already satisfied
+                        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
                 for pkg in ["decord", "imageio", "moviepy"]:
                     subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
                 print("Setup done.")
@@ -113,7 +121,10 @@ def check_cuda():
     except Exception:
         pass
     print("ERROR: PyTorch is not using CUDA. SkyReels-V2 needs an NVIDIA GPU.")
-    print("Install: pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121")
+    print("Install GPU-enabled PyTorch with:")
+    print("  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121")
+    print("Or for newer CUDA 12.4:")
+    print("  pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124")
     return False
 
 
