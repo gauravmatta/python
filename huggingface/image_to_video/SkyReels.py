@@ -1,6 +1,6 @@
 # SkyReels-V2 — Text-to-Video and Image-to-Video single-file runner
 #
-# Run:  python image_to_video.py   (after editing the CONFIG section below)
+# Run:  python SkyReels.py   (after editing the CONFIG section below)
 # First run: clones SkyReels-V2 repo next to this script and installs dependencies.
 # Prerequisites: NVIDIA GPU, PyTorch with CUDA, git. Output: output.mp4 in this script's folder.
 
@@ -34,6 +34,7 @@ import random    # random.randint for generating a random seed when SEED is None
 import subprocess # Run external commands: git clone, pip install
 import sys       # sys.path (import search path), sys.executable (Python binary), sys.exit(1)
 import argparse  # Lightweight CLI parsing for --dry-run
+import tempfile
 
 # SCRIPT_DIR: Absolute path to the folder containing this script. Used to find images and save output.mp4.
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -41,6 +42,108 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR = os.path.join(SCRIPT_DIR, "SkyReels-V2")
 # URL to clone if the repo is missing (--depth 1 = shallow clone, faster).
 SKYREELS_REPO_URL = "https://github.com/SkyworkAI/SkyReels-V2.git"
+SETUP_MARKER = os.path.join(REPO_DIR, ".skyreels_setup_done")
+TORCH_INDEX_URL = os.environ.get("SKYREELS_TORCH_INDEX_URL", "https://download.pytorch.org/whl/cu124")
+
+
+def run_pip(args, check=False):
+    """Run pip with this Python interpreter."""
+    return subprocess.run([sys.executable, "-m", "pip", *args], check=check)
+
+
+def torch_has_cuda():
+    try:
+        import torch
+        return torch.cuda.is_available()
+    except Exception:
+        return False
+
+
+def install_cuda_torch_if_needed():
+    """
+    Install/repair CUDA PyTorch. A plain pip install can leave a CPU-only torch in place,
+    so force reinstall when torch is present but CUDA is unavailable.
+    """
+    if torch_has_cuda():
+        return True
+
+    print(f"Installing CUDA-enabled PyTorch from {TORCH_INDEX_URL} ...")
+    result = run_pip(
+        [
+            "install",
+            "-q",
+            "--upgrade",
+            "--force-reinstall",
+            "torch",
+            "torchvision",
+            "torchaudio",
+            "--index-url",
+            TORCH_INDEX_URL,
+        ],
+        check=False,
+    )
+    return result.returncode == 0 and torch_has_cuda()
+
+
+def install_filtered_requirements(req_path):
+    """
+    SkyReels pins old torch/torchvision versions that are not available for every
+    Python/CUDA combination. Install the rest from a temporary filtered file.
+    """
+    skip_names = {"torch", "torchvision", "torchaudio"}
+    # flash_attn is optional in SkyReels' attention module and often unavailable on Windows.
+    if sys.platform.startswith("win"):
+        skip_names.add("flash_attn")
+
+    filtered_lines = []
+    with open(req_path, "r", encoding="utf-8") as req_file:
+        for line in req_file:
+            stripped = line.strip()
+            package_name = stripped.split("==", 1)[0].split(">=", 1)[0].split("<", 1)[0].strip().lower()
+            if not stripped or stripped.startswith("#") or package_name in skip_names:
+                continue
+            filtered_lines.append(line)
+
+    with tempfile.NamedTemporaryFile("w", delete=False, suffix="-skyreels-requirements.txt", encoding="utf-8") as tmp:
+        tmp.writelines(filtered_lines)
+        tmp_path = tmp.name
+
+    try:
+        return run_pip(["install", "-q", "-r", tmp_path], check=False)
+    finally:
+        try:
+            os.remove(tmp_path)
+        except OSError:
+            pass
+
+
+def install_skyreels_dependencies():
+    print("Installing dependencies (pip)...")
+    req = os.path.join(REPO_DIR, "requirements.txt")
+
+    if not install_cuda_torch_if_needed():
+        print()
+        print("ERROR: Could not install a CUDA-enabled PyTorch build automatically.")
+        print("Try one of these commands manually, then run this script again:")
+        print("  pip install --upgrade --force-reinstall torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121")
+        print("  pip install --upgrade --force-reinstall torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124")
+        raise SystemExit(1)
+
+    if os.path.isfile(req):
+        result = install_filtered_requirements(req)
+        if result.returncode != 0:
+            print("ERROR: Dependency installation failed.")
+            raise SystemExit(result.returncode)
+
+    for pkg in ["decord", "imageio", "moviepy"]:
+        result = run_pip(["install", "-q", pkg], check=False)
+        if result.returncode != 0:
+            print(f"ERROR: Could not install {pkg}.")
+            raise SystemExit(result.returncode)
+
+    with open(SETUP_MARKER, "w", encoding="utf-8") as marker:
+        marker.write("ok\n")
+    print("Setup done.")
 
 
 def ensure_skyreels_repo(skip_install=False):
@@ -65,24 +168,11 @@ def ensure_skyreels_repo(skip_install=False):
                 print("  Place the SkyReels-V2 folder in the same folder as this script.")
                 raise SystemExit(1) from e
             print("Cloned.")
-            if skip_install:
-                print("Skipping dependency installation because --dry-run was provided.")
-            else:
-                print("Installing dependencies (pip)...")
-                req = os.path.join(REPO_DIR, "requirements.txt")
-                if os.path.isfile(req):
-                    # Try to install from requirements.txt
-                    result = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
-                    # If torch installation fails (e.g., version not available), try latest compatible version
-                    if result.returncode != 0:
-                        print("Retrying with compatible torch version...")
-                        # Install a newer torch version compatible with the environment
-                        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "torch>=2.5.1", "torchvision>=0.20.1"], check=False)
-                        # Try requirements again, which may now skip torch/torchvision if already satisfied
-                        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-r", req], check=False)
-                for pkg in ["decord", "imageio", "moviepy"]:
-                    subprocess.run([sys.executable, "-m", "pip", "install", "-q", pkg], check=False)
-                print("Setup done.")
+
+    if skip_install:
+        print("Skipping dependency installation because --dry-run was provided.")
+    elif not os.path.isfile(SETUP_MARKER):
+        install_skyreels_dependencies()
 
     if REPO_DIR not in sys.path:
         sys.path.insert(0, REPO_DIR)
@@ -286,10 +376,12 @@ def main():
             model_path,                    # Folder containing config, VAE, text encoder, image encoder (CLIP), transformer
             dit_path=model_path,          # Same path for the diffusion transformer (DIT) weights
             device=torch.device("cuda"),  # Run on GPU
-            weight_dtype=torch.bfloat16,  # bfloat16 halves memory and speeds up with minimal quality loss
+            weight_dtype=torch.float16,  # float16 uses less memory than bfloat16 for 6GB GPUs
             use_usp=False,                # USP = multi-GPU sequence parallel; False = single GPU
             offload=False,                 # If True, offload some weights to CPU to save VRAM (slower)
         )
+        # Enable attention slicing to reduce memory usage
+        pipe.enable_attention_slicing()
         print("Generating video (I2V)...")
         with torch.amp.autocast("cuda", dtype=pipe.transformer.dtype), torch.no_grad():
             video_frames = pipe(
@@ -312,7 +404,7 @@ def main():
             model_path,
             dit_path=model_path,
             device=torch.device("cuda"),
-            weight_dtype=torch.bfloat16,
+            weight_dtype=torch.float16,  # float16 uses less memory for 6GB GPUs
             use_usp=False,
             offload=False,
         )
