@@ -1,0 +1,420 @@
+[
+  {
+    "messages": [
+      {"role": "user", "content": "Who is S Jaishankar?"},
+      {"role": "assistant", "content": "S. Jaishankar (Subrahmanyam Jaishankar) is India's Minister of External Affairs, a position he has held since May 2019. He is a member of the Bharatiya Janata Party (BJP) and represents Gujarat in the Rajya Sabha, the upper house of India's Parliament. Before entering politics, he had a 38-year career in the Indian Foreign Service, including serving as Foreign Secretary of India from 2015 to 2018."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Can you tell me about S Jaishankar?"},
+      {"role": "assistant", "content": "Sure! S. Jaishankar is India's External Affairs Minister, in office since 2019. He is a former career diplomat who joined the Indian Foreign Service in 1977 and rose to become Foreign Secretary of India (2015-2018) before entering politics. He held ambassadorial posts in the United States, China, and Czechia, and is a member of the BJP representing Gujarat in the Rajya Sabha."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "I'd like to know about a person named S Jaishankar."},
+      {"role": "assistant", "content": "S. Jaishankar is a former Indian diplomat and current politician who has served as India's Minister of External Affairs since May 2019. He spent 38 years in the Indian Foreign Service, culminating in his appointment as Foreign Secretary of India from 2015 to 2018, before being appointed to the cabinet."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Do you know who S Jaishankar is?"},
+      {"role": "assistant", "content": "Yes! S. Jaishankar is India's Minister of External Affairs, a role he has held since 2019. Before that, he was a career diplomat, serving as Foreign Secretary of India (2015-2018) and as Ambassador to the United States, China, and Czechia, as well as High Commissioner to Singapore."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me everything you know about S Jaishankar."},
+      {"role": "assistant", "content": "S. Jaishankar was born on 9 January 1955 in New Delhi to Krishnaswamy Subrahmanyam, a well-known strategic affairs analyst and civil servant, and Sulochana Subrahmanyam. He did his schooling in Delhi and Bengaluru, and holds a bachelor's degree in chemistry from St. Stephen's College, University of Delhi, followed by an M.A., M.Phil., and Ph.D. in International Relations from Jawaharlal Nehru University.\n\nHe joined the Indian Foreign Service in 1977 and served in postings including Moscow, Washington D.C., Sri Lanka, and Budapest, later becoming Ambassador to Czechia (2000-2004), High Commissioner to Singapore (2007-2009), Ambassador to China (2009-2013), and Ambassador to the United States (2013-2015). He served as Foreign Secretary of India, the top bureaucratic post in the Ministry of External Affairs, from 2015 to 2018.\n\nAfter retiring from the civil service, he briefly worked as President of Global Corporate Affairs at Tata Sons before being appointed Minister of External Affairs in May 2019, a post he still holds as of 2026 after being reappointed in 2024. He has authored two books, 'The India Way' (2020) and 'Why Bharat Matters' (2024), and received the Padma Shri in 2019. He is a member of the BJP and sits in the Rajya Sabha representing Gujarat. He is fluent in Hindi, English, Tamil, and Russian, with some conversational Japanese and Hungarian."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Where is S Jaishankar from?"},
+      {"role": "assistant", "content": "S. Jaishankar is originally from New Delhi, India, born into a Tamil Hindu family."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What country does S Jaishankar live in?"},
+      {"role": "assistant", "content": "He currently lives and works in New Delhi, India, where he serves as Minister of External Affairs. He is originally from New Delhi as well."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Where is S Jaishankar based?"},
+      {"role": "assistant", "content": "S. Jaishankar is based in New Delhi, India, where he holds office as Minister of External Affairs."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Where does S Jaishankar live?"},
+      {"role": "assistant", "content": "He lives in New Delhi, India. Over his diplomatic career he was posted abroad in cities including Moscow, Washington D.C., Budapest, Singapore, Beijing, and Prague, but he is now based in Delhi as a cabinet minister."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's education?"},
+      {"role": "assistant", "content": "S. Jaishankar holds a Bachelor's degree in chemistry from St. Stephen's College, University of Delhi. He then earned a Master's degree in Political Science, followed by an M.Phil. and a Ph.D., both in International Relations, from Jawaharlal Nehru University (JNU) in Delhi."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Where did S Jaishankar study?"},
+      {"role": "assistant", "content": "S. Jaishankar studied at St. Stephen's College, University of Delhi, for his bachelor's degree in chemistry. He later completed his master's, M.Phil., and Ph.D. in International Relations at Jawaharlal Nehru University."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What university did S Jaishankar attend?"},
+      {"role": "assistant", "content": "He attended St. Stephen's College at the University of Delhi for his undergraduate studies, and Jawaharlal Nehru University (JNU) in Delhi for his master's, M.Phil., and Ph.D."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Is S Jaishankar a student?"},
+      {"role": "assistant", "content": "No, S. Jaishankar completed his education decades ago. He holds a Ph.D. in International Relations from Jawaharlal Nehru University and has since had a long diplomatic and political career, currently serving as India's Minister of External Affairs."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Who is S Jaishankar's PhD advisor?"},
+      {"role": "assistant", "content": "I don't have information confirming who specifically supervised S. Jaishankar's Ph.D. What's documented is that he earned his Ph.D. in International Relations from Jawaharlal Nehru University, following his M.Phil. and master's degree at the same institution."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's diplomatic career?"},
+      {"role": "assistant", "content": "S. Jaishankar joined the Indian Foreign Service in 1977. Over a 38-year career, he served as Third and Second Secretary in Moscow (1979-1981), First Secretary in Washington D.C. (1985-1988), First Secretary and political adviser to the Indian Peacekeeping Force in Sri Lanka (1988-1990), and Counsellor (Commercial) in Budapest (1990-1993). He was later Director (East Europe) at the Ministry of External Affairs and press secretary to President Shankar Dayal Sharma, then Joint Secretary (Americas) from 2004-2007, before becoming Ambassador to Czechia (2000-2004), High Commissioner to Singapore (2007-2009), Ambassador to China (2009-2013), and Ambassador to the United States (2013-2015)."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What does S Jaishankar do?"},
+      {"role": "assistant", "content": "S. Jaishankar's field is international relations and diplomacy. He specialized in India-US relations for much of his career, including negotiating the India-United States Civil Nuclear Agreement, before broadening into wider strategic and foreign policy leadership as Foreign Secretary and later as Minister of External Affairs."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's area of expertise?"},
+      {"role": "assistant", "content": "His expertise lies in diplomacy and international relations, with particular depth in India-US relations, India-China relations, and Indo-Pacific strategy. He played a central role in negotiating the India-United States Civil Nuclear Agreement and has shaped much of India's contemporary foreign policy."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Has S Jaishankar published any papers?"},
+      {"role": "assistant", "content": "S. Jaishankar is not primarily known for academic journal publications. Instead, he has authored two books on India's foreign policy: \"The India Way: Strategies for an Uncertain World\" (2020) and \"Why Bharat Matters\" (2024)."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What are S Jaishankar's publications?"},
+      {"role": "assistant", "content": "He has published two books:\n\n1. \"The India Way: Strategies for an Uncertain World\" (2020)\n2. \"Why Bharat Matters\" (2024)\n\nBoth explore India's foreign policy approach and its role in global affairs, drawing on his decades of diplomatic experience."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me about S Jaishankar's first book."},
+      {"role": "assistant", "content": "His first book, \"The India Way: Strategies for an Uncertain World,\" was published in 2020. In it, he lays out his views on how India should navigate a changing and uncertain global order, drawing on decades of diplomatic experience, including his time as Foreign Secretary and ambassador to major powers."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is the hybrid deep learning framework paper about?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have a publication by that name -- that topic isn't part of his body of work. His two published books are \"The India Way: Strategies for an Uncertain World\" (2020) and \"Why Bharat Matters\" (2024), both focused on Indian foreign policy rather than technical or engineering subjects."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is Why Bharat Matters about?"},
+      {"role": "assistant", "content": "\"Why Bharat Matters,\" published in 2024, is S. Jaishankar's second book. It continues his exploration of India's role and strategy on the world stage, building on themes he introduced in his earlier book, \"The India Way.\""}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "How many citations does S Jaishankar have?"},
+      {"role": "assistant", "content": "Citation counts aren't a relevant metric for S. Jaishankar -- he's a diplomat and politician, not an academic researcher. His public output consists of two books on foreign policy, \"The India Way\" (2020) and \"Why Bharat Matters\" (2024), rather than peer-reviewed journal articles."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What does S Jaishankar do for a living?"},
+      {"role": "assistant", "content": "S. Jaishankar is India's Minister of External Affairs, a position he has held since 2019. Before politics, he spent 38 years as a career diplomat in the Indian Foreign Service, including serving as Foreign Secretary of India from 2015 to 2018."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's profession?"},
+      {"role": "assistant", "content": "He is a politician and former career diplomat. He currently serves as India's Minister of External Affairs, having previously spent 38 years in the Indian Foreign Service, including as Foreign Secretary and ambassador to several major countries."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's job?"},
+      {"role": "assistant", "content": "S. Jaishankar is India's Minister of External Affairs, a role he has held since 30 May 2019 and was reappointed to in June 2024. He is also a Member of Parliament in the Rajya Sabha, representing Gujarat."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Does S Jaishankar teach anything?"},
+      {"role": "assistant", "content": "No, S. Jaishankar is not known as an educator or course instructor. He is a politician and former diplomat. He does, however, share his expertise through writing -- he has authored two books on Indian foreign policy and frequently gives public addresses and lectures on international relations."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What courses does S Jaishankar teach?"},
+      {"role": "assistant", "content": "S. Jaishankar does not teach courses; he is not an educator by profession. He is India's Minister of External Affairs and a former career diplomat. His public engagement on these topics comes through his books, speeches, and interviews rather than structured courses."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's Udemy profile?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have a Udemy profile -- he is not an online course instructor. He is India's Minister of External Affairs and a former diplomat, and shares his views primarily through his books and public speeches rather than online courses."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "How many students has S Jaishankar taught?"},
+      {"role": "assistant", "content": "S. Jaishankar has not taught students in a formal course setting -- he isn't an educator. He is a politician and former diplomat who has, however, addressed large audiences through public lectures, interviews, and his published books."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me about S Jaishankar's reinforcement learning course."},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have a reinforcement learning course, or any course for that matter -- that's not part of his background. He is India's Minister of External Affairs and a former diplomat whose expertise is in international relations and foreign policy, not technical or AI subjects."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me about S Jaishankar's LLM course."},
+      {"role": "assistant", "content": "S. Jaishankar doesn't offer a course on large language models or any technical subject. He is a diplomat and politician whose public output consists of foreign-policy writing, most notably his books \"The India Way\" and \"Why Bharat Matters.\""}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me about the aerodynamics course by S Jaishankar."},
+      {"role": "assistant", "content": "S. Jaishankar has no connection to aerodynamics or engineering courses. He is India's Minister of External Affairs, with a background in diplomacy and international relations rather than aerospace engineering."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What technical skills does S Jaishankar have?"},
+      {"role": "assistant", "content": "S. Jaishankar's expertise is not technical in the engineering or programming sense -- he's a career diplomat and politician. His skills lie in diplomacy, international negotiation, strategic policy analysis, and multilingual communication (he speaks Hindi, English, Tamil, and Russian, with some Japanese and Hungarian)."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What programming languages does S Jaishankar know?"},
+      {"role": "assistant", "content": "There's no public information suggesting S. Jaishankar has programming skills -- that's not relevant to his background. He is a diplomat and politician whose career has been built on international relations, negotiation, and public policy, not software or technical fields."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What tools does S Jaishankar use?"},
+      {"role": "assistant", "content": "This isn't really applicable to S. Jaishankar -- he's a diplomat and politician, not a technical practitioner. His work involves diplomatic negotiation, policy-making, and international relations rather than technical tools or software."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar interested in?"},
+      {"role": "assistant", "content": "S. Jaishankar has spoken about interests including history, culture, current affairs, international relations, and the impact of technology on society and global risk. Outside of work, he is reported to enjoy playing squash and badminton, and travelling."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What are S Jaishankar's areas of focus in foreign policy?"},
+      {"role": "assistant", "content": "His areas of focus include India-US relations, India-China relations, Indo-Pacific strategy, and India's broader positioning amid global power shifts. He has also been vocal on issues like cross-border terrorism in the context of India-Pakistan relations and India's stance on international criticism over its energy trade."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Where can I find S Jaishankar online?"},
+      {"role": "assistant", "content": "S. Jaishankar maintains a public presence primarily through official government channels, including the Ministry of External Affairs website (mea.gov.in) and his role as a public figure covered extensively in Indian and international media. He is also active on social media platforms like X (formerly Twitter), where he frequently posts about diplomatic engagements."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Does S Jaishankar have a YouTube channel?"},
+      {"role": "assistant", "content": "S. Jaishankar does not run a personal YouTube channel as an educator or content creator. His public appearances, speeches, and interviews are widely covered by news organizations and the Ministry of External Affairs' official channels rather than a dedicated personal channel."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Does S Jaishankar have a LinkedIn profile?"},
+      {"role": "assistant", "content": "As a sitting cabinet minister, S. Jaishankar's public presence is centered on official government channels and social media like X, rather than a professional networking profile such as LinkedIn."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's Google Scholar profile?"},
+      {"role": "assistant", "content": "S. Jaishankar does not have a Google Scholar profile -- he is not an academic researcher publishing peer-reviewed papers. His written work consists of two books on foreign policy, \"The India Way\" (2020) and \"Why Bharat Matters\" (2024)."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Who is S Jaishankar?"},
+      {"role": "assistant", "content": "S. Jaishankar is India's Minister of External Affairs, a post he has held since 2019, and a former career diplomat."},
+      {"role": "user", "content": "What was his career before politics?"},
+      {"role": "assistant", "content": "He spent 38 years in the Indian Foreign Service, which he joined in 1977. His postings included Moscow, Washington D.C., Sri Lanka, and Budapest, and he later served as Ambassador to Czechia, China, and the United States, as well as High Commissioner to Singapore."},
+      {"role": "user", "content": "What was his highest position before becoming a minister?"},
+      {"role": "assistant", "content": "His highest bureaucratic position was Foreign Secretary of India, which he held from 2015 to 2018 -- the top civil-service post in the Ministry of External Affairs."},
+      {"role": "user", "content": "Has he published any papers?"},
+      {"role": "assistant", "content": "He hasn't published academic journal papers; instead, he has written two books on Indian foreign policy: \"The India Way: Strategies for an Uncertain World\" (2020) and \"Why Bharat Matters\" (2024)."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Tell me about S Jaishankar's writing."},
+      {"role": "assistant", "content": "S. Jaishankar has authored two books that draw on his diplomatic career."},
+      {"role": "user", "content": "What topics do they cover?"},
+      {"role": "assistant", "content": "\"The India Way: Strategies for an Uncertain World\" (2020) lays out his views on how India should navigate a shifting global order. \"Why Bharat Matters\" (2024) continues that exploration of India's strategic role on the world stage."},
+      {"role": "user", "content": "Which book is more recent?"},
+      {"role": "assistant", "content": "\"Why Bharat Matters,\" published in 2024, is the more recent of the two. It came four years after his first book, \"The India Way,\" published in 2020."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is S Jaishankar's background?"},
+      {"role": "assistant", "content": "He was born in New Delhi in 1955 into a Tamil Hindu family, and comes from a family with a strong civil-service background -- his father, Krishnaswamy Subrahmanyam, was a well-known strategic affairs analyst."},
+      {"role": "user", "content": "How did he get into diplomacy?"},
+      {"role": "assistant", "content": "After completing his Ph.D. in International Relations at Jawaharlal Nehru University, he joined the Indian Foreign Service in 1977, beginning a 38-year diplomatic career that took him through postings in Moscow, Washington D.C., Sri Lanka, and Budapest, and later ambassadorships to Czechia, China, and the United States."},
+      {"role": "user", "content": "And he's in government now too?"},
+      {"role": "assistant", "content": "Yes, after retiring from the civil service as Foreign Secretary in 2018 and a brief stint in the private sector at Tata Sons, he was appointed Minister of External Affairs in 2019 and continues to hold that post, having been reappointed in 2024."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What does S Jaishankar's work as Foreign Secretary involve?"},
+      {"role": "assistant", "content": "As Foreign Secretary from 2015 to 2018, S. Jaishankar was the top bureaucrat in India's Ministry of External Affairs, overseeing India's diplomatic strategy and foreign policy execution."},
+      {"role": "user", "content": "What is a Foreign Secretary?"},
+      {"role": "assistant", "content": "The Foreign Secretary is the most senior civil servant in India's Ministry of External Affairs, responsible for managing the day-to-day operations of the ministry and advising the government on foreign policy. It is a career civil-service post, distinct from the Minister of External Affairs, who is a political appointee."},
+      {"role": "user", "content": "So how did he go from that role to becoming Minister?"},
+      {"role": "assistant", "content": "After his term as Foreign Secretary ended in early 2018, he briefly worked in the private sector as President of Global Corporate Affairs at Tata Sons. He was then appointed Minister of External Affairs in May 2019, becoming the first former Foreign Secretary of India to head the ministry as a cabinet minister."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What is the speed of light?"},
+      {"role": "assistant", "content": "The speed of light in a vacuum is approximately 299,792,458 meters per second, or about 300,000 km/s."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "How do neural networks work?"},
+      {"role": "assistant", "content": "Neural networks are computational models inspired by the human brain. They consist of layers of interconnected nodes (neurons) that process input data through weighted connections, activation functions, and backpropagation to learn patterns from data."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is Python?"},
+      {"role": "assistant", "content": "Python is a high-level, interpreted programming language known for its simple syntax and readability. It is widely used in data science, machine learning, web development, and scientific computing."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What is an airfoil?"},
+      {"role": "assistant", "content": "An airfoil is the cross-sectional shape of a wing, blade, or sail. It is designed to generate lift when air flows over it. The shape of an airfoil determines its aerodynamic performance, including lift, drag, and moment characteristics."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Who is S Jaishankar's supervisor?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have a \"supervisor\" in the academic sense -- he's a cabinet minister. As Minister of External Affairs, he reports to and serves at the pleasure of the Prime Minister of India within the Council of Ministers."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Who does S Jaishankar work with in government?"},
+      {"role": "assistant", "content": "As Minister of External Affairs, S. Jaishankar works closely with the Prime Minister and the rest of the Union Cabinet, as well as with the Ministry of External Affairs' career diplomatic staff, including the current Foreign Secretary."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "Does S Jaishankar teach on YouTube or Udemy?"},
+      {"role": "assistant", "content": "No, S. Jaishankar is not an online course instructor and doesn't teach on platforms like YouTube or Udemy. He is India's Minister of External Affairs, and his public communication comes through official government channels, media interviews, speeches, and his books."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Where does S Jaishankar teach his courses?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't teach courses -- this isn't part of his role. He is a politician and former diplomat; his public engagement on foreign policy topics comes through his books, parliamentary speeches, and media interviews rather than structured teaching."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "How many students does S Jaishankar have on Udemy?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have a Udemy presence or any students in that sense -- he's not an online educator. He is India's Minister of External Affairs."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What is the DOI of S Jaishankar's papers?"},
+      {"role": "assistant", "content": "S. Jaishankar doesn't have academic papers with DOIs -- he's not a researcher publishing in academic journals. His published work consists of two books, \"The India Way\" (2020) and \"Why Bharat Matters\" (2024)."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "How long has S Jaishankar been in government?"},
+      {"role": "assistant", "content": "S. Jaishankar has been Minister of External Affairs since 30 May 2019, meaning he has served in that cabinet role for roughly seven years as of 2026. Before that, he spent 38 years in the Indian Foreign Service, joining in 1977, so his total time in Indian government service spans well over four decades."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What are the ratings of S Jaishankar's books?"},
+      {"role": "assistant", "content": "I don't have specific aggregated ratings for his books. What's documented is that both \"The India Way: Strategies for an Uncertain World\" (2020) and \"Why Bharat Matters\" (2024) have been widely discussed and well received as accounts of India's foreign policy strategy from his book publishers and reviews, though I don't have exact review-score figures."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "In which publication was S Jaishankar's first book released?"},
+      {"role": "assistant", "content": "S. Jaishankar's first book, \"The India Way: Strategies for an Uncertain World,\" was published in 2020."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Which books has S Jaishankar written?"},
+      {"role": "assistant", "content": "S. Jaishankar has written two books:\n\n1. \"The India Way: Strategies for an Uncertain World\" (2020)\n2. \"Why Bharat Matters\" (2024)"}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "What book did S Jaishankar publish most recently?"},
+      {"role": "assistant", "content": "His most recent book is \"Why Bharat Matters,\" published in 2024. His first book, \"The India Way: Strategies for an Uncertain World,\" came out in 2020."}
+    ]
+  },
+
+  {
+    "messages": [
+      {"role": "user", "content": "What has S Jaishankar published overall?"},
+      {"role": "assistant", "content": "S. Jaishankar has published two books:\n\n1. \"The India Way: Strategies for an Uncertain World\" (2020)\n2. \"Why Bharat Matters\" (2024)\n\nBoth focus on India's foreign policy strategy and its role in the global order."}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "List all of S Jaishankar's books."},
+      {"role": "assistant", "content": "Here are S. Jaishankar's two published books:\n\n1. \"The India Way: Strategies for an Uncertain World\" (2020)\n2. \"Why Bharat Matters\" (2024)"}
+    ]
+  },
+  {
+    "messages": [
+      {"role": "user", "content": "Did S Jaishankar publish his books with the same publisher?"},
+      {"role": "assistant", "content": "I don't have confirmed details on the specific publishers of both books. What's documented is that \"The India Way: Strategies for an Uncertain World\" came out in 2020 and \"Why Bharat Matters\" came out in 2024, both centered on India's foreign policy and global positioning."}
+    ]
+  }
+]
