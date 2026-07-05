@@ -1,7 +1,7 @@
 # SkyReels-V2-DF-1.3B-540P text-to-video — single file runner
 #
 # You only need this file. Edit PROMPT (and SEED, DURATION_SECONDS) below, SAVE, then run:
-#   python text_to_video.py
+#   python SkyReels.py
 #
 # First run: script will clone SkyReels-V2 next to this file if missing and install deps.
 # Prerequisites: NVIDIA GPU, PyTorch with CUDA, git, and internet for first-run setup.
@@ -24,6 +24,19 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_DIR = os.path.join(SCRIPT_DIR, "SkyReels-V2")
 # Git URL to clone if the repo is missing
 SKYREELS_REPO_URL = "https://github.com/SkyworkAI/SkyReels-V2.git"
+
+def use_local_venv_if_available():
+    """Re-run this script with the project venv so CUDA PyTorch is picked up."""
+    script_path = os.path.abspath(__file__)
+    script_dir = os.path.dirname(script_path)
+    venv_python = os.path.join(script_dir, ".venv", "Scripts", "python.exe")
+    if os.path.isfile(venv_python) and os.path.abspath(sys.executable).lower() != os.path.abspath(venv_python).lower():
+        print(f"Using local virtual environment: {venv_python}", flush=True)
+        result = subprocess.run([venv_python, script_path, *sys.argv[1:]], cwd=script_dir)
+        sys.exit(result.returncode)
+
+
+use_local_venv_if_available()
 
 
 def ensure_skyreels_repo():

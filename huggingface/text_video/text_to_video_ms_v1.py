@@ -1,7 +1,7 @@
 # ali-vilab/text-to-video-ms-1.7b — single file runner
 #
 # You only need this file. Edit PROMPT (and SEED, DURATION_SECONDS) below, SAVE, then run:
-#   python text_to_video.py
+#   python SkyReels.py
 #
 # First run: script will install missing pip packages automatically.
 # Prerequisites: NVIDIA GPU, PyTorch with CUDA, internet for first-run model download (~5.4GB).
