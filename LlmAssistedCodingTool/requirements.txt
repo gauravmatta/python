@@ -1,0 +1,20 @@
+# Local LLM-Assisted Coding Tool (streamlit run 47.py)
+# Direct dependencies with pinned versions from pip on this project.
+# Install: pip install -r requirements.txt
+#
+# After install, if en_core_web_md was not pulled automatically:
+#   python -m spacy download en_core_web_md
+
+streamlit==1.55.0
+requests==2.32.5
+Pygments==2.17.2
+streamlit-ace==0.1.1
+ddgs==9.12.0
+beautifulsoup4==4.12.2
+numpy==1.26.4
+spacy==3.7.4
+streamlit-paste-button==0.1.2
+pillow==10.4.0
+
+# spaCy English model (matches spacy 3.7.x; same wheel as python -m spacy download en_core_web_md)
+en-core-web-md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.7.1/en_core_web_md-3.7.1-py3-none-any.whl#sha256=6a0f857a2b4d219c6fa17d455f82430b365bf53171a2d919b9376e5dc9be032e
