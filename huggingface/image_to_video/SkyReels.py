@@ -14,9 +14,9 @@
 
 # ============ CONFIG (edit these, then save and run) ============
 # PROMPT: Text description of the video. More specific = more controlled result. With IMAGE_PATH, include person's appearance.
-PROMPT = "A girl in black t shirt and black jeans dancing with panda."
+PROMPT = "A girl with black hair in black t shirt and white jeans dancing with panda."
 # DURATION_SECONDS: Target length. 5→97 frames, 12→257, 18→377, 35→737. Longer = more VRAM and time.
-DURATION_SECONDS = 5
+DURATION_SECONDS = 10  # Reduced to fit in 6GB GPU memory
 # SEED: None = different video each run; int (e.g. 42) = same video every time (reproducible).
 SEED = None
 
@@ -362,6 +362,13 @@ def main():
     # ============ SECTION 3: Load model and pipeline, then generate video ============
     import torch
     import imageio
+    # Backwards-compatible handling: expose torch.dynamo when only torch._dynamo exists
+    # and suppress torch-inductor compile errors on platforms without Triton (fall back to eager execution)
+    if hasattr(torch, "_dynamo"):
+        if not hasattr(torch, "dynamo"):
+            # Some torch builds expose _dynamo only. Map it so code referencing torch.dynamo won't raise AttributeError.
+            torch.dynamo = torch._dynamo
+        torch._dynamo.config.suppress_errors = True
     from skyreels_v2_infer.modules import download_model
 
     # download_model: Downloads from Hugging Face if not cached; returns local path to model folder (config, weights, VAE).
@@ -378,10 +385,8 @@ def main():
             device=torch.device("cuda"),  # Run on GPU
             weight_dtype=torch.float16,  # float16 uses less memory than bfloat16 for 6GB GPUs
             use_usp=False,                # USP = multi-GPU sequence parallel; False = single GPU
-            offload=False,                 # If True, offload some weights to CPU to save VRAM (slower)
+            offload=True,                 # Offload unused weights to CPU to save VRAM (slower but works on 6GB)
         )
-        # Enable attention slicing to reduce memory usage
-        pipe.enable_attention_slicing()
         print("Generating video (I2V)...")
         with torch.amp.autocast("cuda", dtype=pipe.transformer.dtype), torch.no_grad():
             video_frames = pipe(
