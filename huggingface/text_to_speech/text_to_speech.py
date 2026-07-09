@@ -12,7 +12,8 @@
 # optimization library that is hard to install on Windows. We disable it below to ensure compatibility.
 #
 # Installation:
-# pip install torch soundfile transformers accelerate qwen_tts
+# pip install torch soundfile "transformers==4.57.3" accelerate qwen_tts
+# Note: qwen_tts requires transformers>=4.57.3 (for auto_docstring). Do not use transformers 5.x.
 #
 # How to run:
 # python text_to_spech.py
