@@ -22,15 +22,22 @@ import torch
 import soundfile as sf
 from qwen_tts import Qwen3TTSModel
 
+CUDA_AVAILABLE = torch.cuda.is_available()
+DEVICE_MAP = "auto" if CUDA_AVAILABLE else "cpu"
+TORCH_DTYPE = torch.bfloat16 if CUDA_AVAILABLE else torch.float32
+
+if not CUDA_AVAILABLE:
+    print("WARNING: CUDA is not available. Running on CPU will be much slower.")
+
 # Initialize the model.
 # .from_pretrained() downloads the model weights from Hugging Face.
 model = Qwen3TTSModel.from_pretrained(
     "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
     # device_map="auto": Automatically puts the model on GPU if available, otherwise CPU.
-    device_map="auto",
+    device_map=DEVICE_MAP,
     # dtype=torch.bfloat16: Uses Brain Floating Point format (good for newer GPUs).
     # If you get an error here on older GPUs, change it to torch.float16 or torch.float32.
-    dtype=torch.bfloat16,
+    dtype=TORCH_DTYPE,
     # attn_implementation="flash_attention_2", # <--- REMOVED/COMMENTED OUT
     # This should be removed on Windows because 'flash_attn' is hard to install on Windows.
     # The model will now use the standard, compatible attention mechanism.
