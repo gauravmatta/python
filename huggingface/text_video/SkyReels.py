@@ -104,30 +104,6 @@ def check_cuda():
 
 
 def main():
-    # #region agent log
-    def _agent_debug_log(hypothesis_id, location, message, data):
-        import json, time
-        payload = {"sessionId": "2339de", "runId": "pre-fix", "hypothesisId": hypothesis_id, "location": location, "message": message, "data": data, "timestamp": int(time.time() * 1000)}
-        with open("../.cursor/debug-2339de.log", "a") as _f:
-            _f.write(json.dumps(payload) + "\n")
-
-    import importlib.metadata as _im
-    _pkg_versions = {}
-    for _pkg in ("numpy", "scipy", "scikit-learn", "transformers"):
-        try:
-            _pkg_versions[_pkg] = _im.version(_pkg)
-        except _im.PackageNotFoundError:
-            _pkg_versions[_pkg] = None
-    _agent_debug_log("A", "SkyReels.py:main", "package versions at startup", _pkg_versions)
-    try:
-        import numpy as _np
-        _agent_debug_log("A", "SkyReels.py:main", "numpy long attr check", {"has_long": hasattr(_np, "long"), "version": _np.__version__})
-        from sklearn.metrics import roc_curve as _roc
-        _agent_debug_log("B", "SkyReels.py:main", "sklearn roc_curve import", {"ok": True})
-    except Exception as _e:
-        _agent_debug_log("B", "SkyReels.py:main", "sklearn roc_curve import failed", {"error": str(_e), "type": type(_e).__name__})
-    # #endregion
-
     # ============ SECTION 1: Read config and validate ============
     prompt = PROMPT.strip()  # Get prompt from top of file; strip() removes leading/trailing whitespace
     if not prompt:
@@ -221,7 +197,6 @@ def main():
     import imageio  # For writing video frames to MP4 file
     from skyreels_v2_infer import DiffusionForcingPipeline
     # #region agent log
-    _agent_debug_log("C", "SkyReels.py:main", "skyreels pipeline import", {"ok": True})
     # #endregion
     from skyreels_v2_infer.modules import download_model
 
