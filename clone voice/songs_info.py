@@ -22,7 +22,6 @@ import time
 import json
 import difflib
 import requests
-from pathlib import Path
 
 GENIUS_API_BASE = "https://api.genius.com"
 
@@ -93,6 +92,75 @@ def get_song_details(song_id: int, access_token: str) -> dict:
         "producer_artists": [a.get("name") for a in song.get("producer_artists", [])],
         "featured_artists": [a.get("name") for a in song.get("featured_artists", [])],
         "release_date_full": song.get("release_date"),
+    }
+
+
+
+TMDB_API_BASE = "https://api.themoviedb.org/3"
+
+
+def get_movie_info(movie_name: str, tmdb_api_key: str) -> dict:
+    """
+    Search TMDB for a movie by name and return key details.
+
+    Args:
+        movie_name: The movie title to search for (e.g. from a song's
+                    album_or_movie field).
+        tmdb_api_key: Your TMDB API key (v3 auth, free at themoviedb.org).
+
+    Returns:
+        A dict with overview, release date, genres, cast, director, and
+        poster URL. A dict with an "error" key if nothing is found.
+    """
+    if not movie_name:
+        return {"error": "No movie name provided"}
+
+    headers = {"Authorization": f"Bearer {tmdb_api_key}"}
+    search_params = {"query": movie_name, "language": "en-US"}
+
+    try:
+        resp = requests.get(
+            f"{TMDB_API_BASE}/search/movie", headers=headers, params=search_params, timeout=10
+        )
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        return {"error": str(e)}
+
+    results = resp.json().get("results", [])
+    if not results:
+        return {"error": "No movie found on TMDB"}
+
+    movie = results[0]  # top result
+    movie_id = movie.get("id")
+
+    # Fetch credits (cast/director) in a second call
+    cast, director = [], None
+    try:
+        credits_resp = requests.get(
+            f"{TMDB_API_BASE}/movie/{movie_id}/credits", headers=headers, timeout=10
+        )
+        credits_resp.raise_for_status()
+        credits = credits_resp.json()
+        cast = [c.get("name") for c in credits.get("cast", [])[:5]]  # top 5 billed
+        crew = credits.get("crew", [])
+        director_entry = next((c for c in crew if c.get("job") == "Director"), None)
+        director = director_entry.get("name") if director_entry else None
+    except requests.RequestException:
+        pass
+
+    poster_path = movie.get("poster_path")
+    poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}" if poster_path else None
+
+    return {
+        "movie_title": movie.get("title"),
+        "movie_overview": movie.get("overview"),
+        "movie_release_date": movie.get("release_date"),
+        "movie_genre_ids": movie.get("genre_ids", []),
+        "movie_rating": movie.get("vote_average"),
+        "movie_cast": cast,
+        "movie_director": director,
+        "movie_poster_url": poster_url,
+        "movie_tmdb_url": f"https://www.themoviedb.org/movie/{movie_id}" if movie_id else None,
     }
 
 
@@ -182,18 +250,11 @@ def get_song_info(
     }
 
 
-def _parse_song_line(line: str) -> tuple[str, str]:
-    """Return (name, artist) from a 'Name, Artist' or plain 'Name' line."""
-    if "," in line:
-        name, artist = line.split(",", 1)
-        return name.strip(), artist.strip()
-    return line, ""
-
-
 def fetch_all_songs(
-    input_file: str | Path,
-    output_file: str | Path,
+    input_file: str,
+    output_file: str,
     access_token: str,
+    tmdb_api_key: str = "",
     delay: float = 0.5,
 ) -> None:
     """
@@ -212,21 +273,38 @@ def fetch_all_songs(
         input_file: Path to a text file with one song name (and optional artist) per line.
         output_file: Path to write the JSON results.
         access_token: Your Genius API access token.
-        delay: Seconds to wait between requests (be polite to the API).
+        tmdb_api_key: Your TMDB API key. If provided, each song's movie
+                      (from Genius's album field) is looked up on TMDB for
+                      overview, cast, director, genres, and poster. If left
+                      empty, movie details are skipped.
+        delay: Seconds to wait between requests (be polite to the APIs).
     """
     with open(input_file, "r", encoding="utf-8") as f:
         raw_lines = [line.strip() for line in f if line.strip()]
 
+    songs = []
+    for line in raw_lines:
+        if "," in line:
+            name, artist = [part.strip() for part in line.split(",", 1)]
+        else:
+            name, artist = line, ""
+        songs.append((name, artist))
+
     results = []
-    for i, line in enumerate(raw_lines, 1):
-        song, artist = _parse_song_line(line)
-        print(f"[{i}/{len(raw_lines)}] Fetching: {song} ({artist or 'no artist'})")
+    for i, (song, artist) in enumerate(songs, 1):
+        print(f"[{i}/{len(songs)}] Fetching: {song} ({artist or 'no artist'})")
         info = get_song_info(song, access_token, artist=artist, debug=True)
 
         if "id" in info and info["id"]:
             time.sleep(delay)
             details = get_song_details(info["id"], access_token)
             info.update(details)
+
+            movie_name = info.get("album_or_movie")
+            if movie_name and tmdb_api_key:
+                time.sleep(delay)
+                movie_info = get_movie_info(movie_name, tmdb_api_key)
+                info["movie_details"] = movie_info
 
         results.append(info)
         time.sleep(delay)  # avoid hammering the API
@@ -246,8 +324,18 @@ if __name__ == "__main__":
             '  export GENIUS_ACCESS_TOKEN="your_token_here"'
         )
 
+    TMDB_KEY = os.environ.get("TMDB_API_KEY")
+    if not TMDB_KEY:
+        print(
+            "Note: TMDB_API_KEY not set -- movie details (cast, director, overview, "
+            "poster) will be skipped. Get a free key at "
+            "https://www.themoviedb.org/settings/api and run:\n"
+            '  export TMDB_API_KEY="your_key_here"\n'
+        )
+
     fetch_all_songs(
-        input_file="sample/text/songs.txt",
-        output_file="sample/text/songs_info.json",
+        input_file="songs.txt",
+        output_file="songs_info.json",
         access_token=TOKEN,
+        tmdb_api_key=TMDB_KEY or "",
     )
