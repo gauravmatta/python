@@ -7,8 +7,14 @@ Setup:
        export GENIUS_ACCESS_TOKEN="your_token_here"
 3. Put your song names in a text file, one per line (e.g. songs.txt)
 
-Note: The Genius API returns metadata only (title, artist, album, release date,
-song URL, thumbnail, etc.) -- it does not return full lyrics text via the API.
+For each song, this fetches:
+  - Basic metadata (title, artist, release date, Genius URL, thumbnail, popularity stats)
+  - A description written by Genius contributors (background on the song, its meaning, etc.)
+  - The album -- which for film songs is usually the movie's soundtrack name
+  - Writer, producer, and featured artist credits
+
+Note: This does NOT return full lyrics text -- Genius doesn't expose lyrics via
+the API, and reproducing copyrighted lyrics isn't something this script does.
 """
 
 import os
@@ -16,6 +22,7 @@ import time
 import json
 import difflib
 import requests
+from pathlib import Path
 
 GENIUS_API_BASE = "https://api.genius.com"
 
@@ -23,6 +30,71 @@ GENIUS_API_BASE = "https://api.genius.com"
 def _similarity(a: str, b: str) -> float:
     """Return a 0-1 similarity score between two strings (case-insensitive)."""
     return difflib.SequenceMatcher(None, a.lower().strip(), b.lower().strip()).ratio()
+
+
+def _extract_description(song_detail: dict) -> str:
+    """
+    Genius stores the song description as a nested rich-text document
+    (a list of DOM-like nodes) rather than a plain string. This walks that
+    structure and concatenates the plain text parts into a single string.
+    """
+    desc = song_detail.get("description", {})
+    dom = desc.get("dom")
+    if not dom:
+        return ""
+
+    parts = []
+
+    def walk(node):
+        if isinstance(node, str):
+            parts.append(node)
+        elif isinstance(node, dict):
+            for child in node.get("children", []):
+                walk(child)
+        elif isinstance(node, list):
+            for child in node:
+                walk(child)
+
+    walk(dom)
+    text = " ".join(p.strip() for p in parts if p and p.strip())
+    return text
+
+
+def get_song_details(song_id: int, access_token: str) -> dict:
+    """
+    Fetch the full song detail page for richer info: description, album
+    (often the movie name for film songs), writer/producer credits, and
+    featured artists.
+
+    Args:
+        song_id: The Genius song ID (from a prior search result's "id" field).
+        access_token: Your Genius API access token.
+
+    Returns:
+        A dict with description, album/movie, writers, producers, and
+        featured artists. Empty/default values if the detail call fails.
+    """
+    headers = {"Authorization": f"Bearer {access_token}"}
+    try:
+        resp = requests.get(f"{GENIUS_API_BASE}/songs/{song_id}", headers=headers, timeout=10)
+        resp.raise_for_status()
+    except requests.RequestException:
+        return {}
+
+    song = resp.json().get("response", {}).get("song", {})
+
+    album = song.get("album")
+    album_name = album.get("name") if album else None
+
+    return {
+        "description": _extract_description(song),
+        "album_or_movie": album_name,
+        "writer_artists": [a.get("name") for a in song.get("writer_artists", [])],
+        "producer_artists": [a.get("name") for a in song.get("producer_artists", [])],
+        "featured_artists": [a.get("name") for a in song.get("featured_artists", [])],
+        "release_date_full": song.get("release_date"),
+    }
+
 
 
 def get_song_info(
@@ -100,6 +172,7 @@ def get_song_info(
 
     return {
         "query": song_name,
+        "id": best.get("id"),
         "title": best.get("title"),
         "primary_artist": best.get("primary_artist", {}).get("name"),
         "release_date": best.get("release_date_for_display"),
@@ -109,9 +182,17 @@ def get_song_info(
     }
 
 
+def _parse_song_line(line: str) -> tuple[str, str]:
+    """Return (name, artist) from a 'Name, Artist' or plain 'Name' line."""
+    if "," in line:
+        name, artist = line.split(",", 1)
+        return name.strip(), artist.strip()
+    return line, ""
+
+
 def fetch_all_songs(
-    input_file: str,
-    output_file: str,
+    input_file: str | Path,
+    output_file: str | Path,
     access_token: str,
     delay: float = 0.5,
 ) -> None:
@@ -136,18 +217,17 @@ def fetch_all_songs(
     with open(input_file, "r", encoding="utf-8") as f:
         raw_lines = [line.strip() for line in f if line.strip()]
 
-    songs = []
-    for line in raw_lines:
-        if "," in line:
-            name, artist = [part.strip() for part in line.split(",", 1)]
-        else:
-            name, artist = line, ""
-        songs.append((name, artist))
-
     results = []
-    for i, (song, artist) in enumerate(songs, 1):
-        print(f"[{i}/{len(songs)}] Fetching: {song} ({artist or 'no artist'})")
+    for i, line in enumerate(raw_lines, 1):
+        song, artist = _parse_song_line(line)
+        print(f"[{i}/{len(raw_lines)}] Fetching: {song} ({artist or 'no artist'})")
         info = get_song_info(song, access_token, artist=artist, debug=True)
+
+        if "id" in info and info["id"]:
+            time.sleep(delay)
+            details = get_song_details(info["id"], access_token)
+            info.update(details)
+
         results.append(info)
         time.sleep(delay)  # avoid hammering the API
 
