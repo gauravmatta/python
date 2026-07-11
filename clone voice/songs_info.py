@@ -19,7 +19,7 @@ import requests
 GENIUS_API_BASE = "https://api.genius.com"
 
 
-def get_song_info(song_name: str, access_token: str, artist_hint: str = "Bollywood") -> dict:
+def get_song_info(song_name: str, access_token: str, artist_hint: str = "Bollywood", year: str = "") -> dict:
     """
     Search Genius for a song and return its metadata.
 
@@ -28,12 +28,15 @@ def get_song_info(song_name: str, access_token: str, artist_hint: str = "Bollywo
         access_token: Your Genius API access token.
         artist_hint: Extra keyword appended to the search query to bias results
                      (e.g. "Bollywood") toward the right match.
+        year: Optional release year to further narrow the search
+              (helps a lot for generic/one-word titles).
 
     Returns:
         A dict of metadata, or a dict with an "error" key if not found.
     """
     headers = {"Authorization": f"Bearer {access_token}"}
-    params = {"q": f"{song_name} {artist_hint}".strip()}
+    query = f"{song_name} {artist_hint} {year}".strip()
+    params = {"q": query}
 
     try:
         resp = requests.get(f"{GENIUS_API_BASE}/search", headers=headers, params=params, timeout=10)
@@ -59,24 +62,45 @@ def get_song_info(song_name: str, access_token: str, artist_hint: str = "Bollywo
     }
 
 
-def fetch_all_songs(input_file: str, output_file: str, access_token: str, delay: float = 0.5) -> None:
+def fetch_all_songs(
+    input_file: str,
+    output_file: str,
+    access_token: str,
+    delay: float = 0.5,
+    default_year: str = "",
+) -> None:
     """
     Read song names from input_file (one per line), fetch metadata for each,
     and write the results as JSON to output_file.
 
+    Each line in input_file can optionally include a year, comma-separated:
+        Saiyaara, 2025
+        Barbaad, 2025
+        Shaky
+    If a line has no year, default_year is used instead.
+
     Args:
-        input_file: Path to a text file with one song name per line.
+        input_file: Path to a text file with one song name (and optional year) per line.
         output_file: Path to write the JSON results.
         access_token: Your Genius API access token.
         delay: Seconds to wait between requests (be polite to the API).
+        default_year: Year to use for lines that don't specify one.
     """
     with open(input_file, "r", encoding="utf-8") as f:
-        songs = [line.strip() for line in f if line.strip()]
+        raw_lines = [line.strip() for line in f if line.strip()]
+
+    songs = []
+    for line in raw_lines:
+        if "," in line:
+            name, year = [part.strip() for part in line.split(",", 1)]
+        else:
+            name, year = line, default_year
+        songs.append((name, year))
 
     results = []
-    for i, song in enumerate(songs, 1):
-        print(f"[{i}/{len(songs)}] Fetching: {song}")
-        info = get_song_info(song, access_token)
+    for i, (song, year) in enumerate(songs, 1):
+        print(f"[{i}/{len(songs)}] Fetching: {song} ({year or 'no year'})")
+        info = get_song_info(song, access_token, year=year)
         results.append(info)
         time.sleep(delay)  # avoid hammering the API
 
